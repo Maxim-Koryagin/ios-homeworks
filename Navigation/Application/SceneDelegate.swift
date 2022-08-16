@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Navigation
 //
-//  Created by kosmokos I on 14.08.2022.
+//  Created by Maxim Koryagin on 14.08.2022.
 //
 
 import UIKit
@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = ViewController()
+        window.rootViewController = TabBarController()
         window.makeKeyAndVisible()
         self.window = window
     }
-
+let tabBarController = TabBarController()
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
