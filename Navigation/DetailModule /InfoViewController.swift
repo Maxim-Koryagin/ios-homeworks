@@ -37,9 +37,12 @@ class InfoViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemCyan
         
+        setupUI()
+    }
+    
+    func setupUI(){
         view.addSubview(button)
         view.addSubview(buttonAlert)
         
@@ -60,7 +63,6 @@ class InfoViewController : UIViewController{
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             print("Alert")
         }))
-        
     }
     
     @objc func showPostController() {

@@ -26,27 +26,29 @@ class PostViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemCyan
-
-        view.addSubview(titleLabel)
-        titleLabel.text = dataSourse.title
-
-        NSLayoutConstraint.activate([
-                   titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 55),
-                   titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-               ])
-
- 
-        let modal = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showModal))
-        navigationItem.rightBarButtonItems = [modal]
+        setupUI()
        }
 
+    func setupUI(){
+        view.addSubview(titleLabel)
+        titleLabel.text = dataSourse.title
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 55),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        
+        let modal = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showModal))
+        navigationItem.rightBarButtonItems = [modal]
+    }
     
-        @objc func showModal() {
-            let popupViewController = InfoViewController()
-            popupViewController.modalPresentationStyle = .fullScreen
-            self.present(popupViewController, animated: true, completion: nil)
-        }
-
+    @objc func showModal() {
+        let popupViewController = InfoViewController()
+        popupViewController.modalPresentationStyle = .fullScreen
+        self.present(popupViewController, animated: true, completion: nil)
+    }
+    
 }
 
     
