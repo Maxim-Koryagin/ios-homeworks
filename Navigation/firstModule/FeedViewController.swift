@@ -56,17 +56,17 @@ class FeedViewController: UIViewController {
     func setupConstraints() {
         view.addSubview(titleLabel)
         view.addSubview(button)
-        
+
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
+
     }
     
     @objc func showDetailController() {
