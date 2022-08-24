@@ -27,7 +27,7 @@ class TabBarController: UITabBarController {
         self.viewControllers = [firstTabNavidationController, secondTabNavigationController]
         
         // Стилизация Tab Bar'а
-        let item1 = UITabBarItem(title: "Home", image: UIImage(systemName: "square.grid.2x2"), tag: 0)
+        let item1 = UITabBarItem(title: "Feed", image: UIImage(systemName: "square.grid.2x2"), tag: 0)
         let item2 = UITabBarItem(title: "Profile", image:  UIImage(systemName: "person"), tag: 1)
         
         firstTabNavidationController.tabBarItem = item1

@@ -11,7 +11,7 @@ class PostViewController : UIViewController {
     
     // MARK: - Properties
     
-    var dataSourse = PostModel.init(title: "Пост")
+    var dataSourse = PostModel.init(title: "Post")
 
     let titleLabel: UILabel = {
            let label = UILabel()

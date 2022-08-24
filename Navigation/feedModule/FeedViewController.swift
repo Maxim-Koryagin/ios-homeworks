@@ -11,7 +11,7 @@ class FeedViewController: UIViewController {
     
     // MARK: - Properties
     
-    var dataSource = FeedModel(title: "Главная")
+    var dataSource = FeedModel(title: "Feed")
     
     private let titleLabel: UILabel = {
         let label = UILabel()

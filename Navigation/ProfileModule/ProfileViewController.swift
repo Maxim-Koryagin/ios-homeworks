@@ -17,17 +17,17 @@ class ProfileViewController: UIViewController {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Профиль"
+        label.text = "Profile"
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    // MARK: - Life cecle
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .systemCyan
         setupConstraints()
         view.addSubview(profileHeader)
     }
