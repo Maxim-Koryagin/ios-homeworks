@@ -11,7 +11,7 @@ class ProfileHeaderView: UIView {
     
     // MARK: - Properties
     
-    private var profileImage: UIImageView = {
+    private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "jdun")
         imageView.layer.cornerRadius = 60
@@ -20,21 +20,21 @@ class ProfileHeaderView: UIView {
         imageView.clipsToBounds = true
         return imageView
     }()
-    private var profileName: UILabel = {
+    private let profileName: UILabel = {
         let profileName = UILabel()
         profileName.text = "Jdun"
         profileName.font = UIFont(name: "Bold", size: 18)
         profileName.textColor = UIColor.black
         return profileName
     }()
-    private var statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let statuslabel = UILabel()
         statuslabel.text = "Waiting for something..."
         statuslabel.font = UIFont(name: "Bold", size: 14)
         statuslabel.textColor = UIColor.black
         return statuslabel
     }()
-    private var showStatusBotton: UIButton = {
+    private let showStatusBotton: UIButton = {
         let showStatusBotton = UIButton()
         showStatusBotton.setTitle("Show Status", for: .normal)
         showStatusBotton.setTitleColor(.white, for: .normal)
