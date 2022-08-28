@@ -5,40 +5,36 @@
 //  Created by kosmokos I on 19.08.2022.
 //
 
-import TinyConstraints
 import UIKit
 
 class ProfileHeaderView: UIView {
     
     // MARK: - Properties
     
-    private let profileImage: UIImageView = {
+    private var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "jdun")
-        imageView.layer.cornerRadius = 65
+        imageView.layer.cornerRadius = 60
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    private let profileName: UILabel = {
+    private var profileName: UILabel = {
         let profileName = UILabel()
         profileName.text = "Jdun"
-        profileName.font = UIFont(name: "bold", size: 18)
+        profileName.font = UIFont(name: "Bold", size: 18)
         profileName.textColor = UIColor.black
-        profileName.translatesAutoresizingMaskIntoConstraints = false
         return profileName
     }()
-    private let statusLabel: UILabel = {
+    private var statusLabel: UILabel = {
         let statuslabel = UILabel()
         statuslabel.text = "Waiting for something..."
         statuslabel.font = UIFont(name: "Bold", size: 14)
         statuslabel.textColor = UIColor.black
-        statuslabel.translatesAutoresizingMaskIntoConstraints = false
         return statuslabel
     }()
-    private let showStatusBotton: UIButton = {
+    private var showStatusBotton: UIButton = {
         let showStatusBotton = UIButton()
         showStatusBotton.setTitle("Show Status", for: .normal)
         showStatusBotton.setTitleColor(.white, for: .normal)
@@ -47,7 +43,6 @@ class ProfileHeaderView: UIView {
         showStatusBotton.layer.shadowOffset = CGSize(width: 4, height: 4)
         showStatusBotton.layer.shadowRadius = 4
         showStatusBotton.layer.shadowOpacity = 0.7
-        showStatusBotton.translatesAutoresizingMaskIntoConstraints = false
         return showStatusBotton
     }()
     
@@ -55,8 +50,7 @@ class ProfileHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addTargets()
-        setupConstraints()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -65,32 +59,27 @@ class ProfileHeaderView: UIView {
     
     //MARK: - Methods
     
-    private func setupConstraints() {
+    func setupUI() {
+        
+        addTargets()
+        setupFrames()
+    }
+    
+    func setupFrames() {
         
         addSubview(profileImage)
         addSubview(profileName)
         addSubview(statusLabel)
         addSubview(showStatusBotton)
         
-        NSLayoutConstraint.activate([
-            
-            profileImage.height(130),
-            profileImage.width(130),
-            profileImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            profileImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            
-            profileName.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-            profileName.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 13),
-            
-            statusLabel.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 45),
-            statusLabel.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 13),
-            
-            showStatusBotton.height(50),
-            showStatusBotton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 34),
-            showStatusBotton.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 16),
-            showStatusBotton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            showStatusBotton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
-        ])
+        profileImage.frame = CGRect(x: 15, y: 80, width: 120, height: 120)
+        
+        profileName.frame = CGRect(x: Int(profileImage.frame.maxX) + 15, y: 90, width: 130, height: 18)
+        
+        statusLabel.frame = CGRect(x: Int(profileImage.frame.maxX) + 15, y: Int(profileName.frame.minY) + 70, width: 200, height: 20)
+        
+        showStatusBotton.frame = CGRect(x: 20, y: profileImage.frame.maxY + 16, width: 350, height: 50)
+        
     }
     
     @objc func buttonPressed() {
@@ -102,3 +91,4 @@ class ProfileHeaderView: UIView {
     }
     
 }
+

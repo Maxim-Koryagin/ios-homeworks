@@ -27,8 +27,10 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemCyan
         setupConstraints()
+        
         view.addSubview(profileHeader)
     }
     
@@ -46,5 +48,4 @@ class ProfileViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         profileHeader.frame = self.view.frame
     }
-    
 }
