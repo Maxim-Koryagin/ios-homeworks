@@ -5,6 +5,7 @@
 //  Created by Maxim Koryagin on 14.08.2022.
 //
 import UIKit
+import TinyConstraints
 
 class ProfileViewController: UIViewController {
     
@@ -31,17 +32,23 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemCyan
         setupConstraints()
         
-        view.addSubview(profileHeader)
     }
     
     //MARK: - Methods
     
     func setupConstraints(){
         view.addSubview(titleLabel)
+        view.addSubview(profileHeader)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            profileHeader.height(220),
+            profileHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            profileHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0),
+            profileHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            
         ])
     }
     
