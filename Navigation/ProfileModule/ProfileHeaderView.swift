@@ -96,7 +96,7 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func buttonPressed() {
-        print(statusLabel.text!)
+        print(statusLabel.text ?? "No text")
     }
     
     func addTargets(){
