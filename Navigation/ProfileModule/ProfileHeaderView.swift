@@ -11,7 +11,7 @@ class ProfileHeaderView: UIView {
     
     // MARK: - Properties
     
-    private let profileImage: UIImageView = {
+    private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "jdun")
         imageView.layer.cornerRadius = 65
@@ -21,7 +21,7 @@ class ProfileHeaderView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    private let profileName: UILabel = {
+    private lazy var profileName: UILabel = {
         let profileName = UILabel()
         profileName.text = "Jdun"
         profileName.font = UIFont(name: "Bold", size: 18)
@@ -29,7 +29,7 @@ class ProfileHeaderView: UIView {
         profileName.translatesAutoresizingMaskIntoConstraints = false
         return profileName
     }()
-    private let statusLabel: UILabel = {
+    private lazy var statusLabel: UILabel = {
         let statuslabel = UILabel()
         statuslabel.text = "Waiting for something..."
         statuslabel.font = UIFont(name: "Bold", size: 14)
@@ -37,7 +37,7 @@ class ProfileHeaderView: UIView {
         statuslabel.translatesAutoresizingMaskIntoConstraints = false
         return statuslabel
     }()
-    private let showStatusBotton: UIButton = {
+    private lazy var showStatusBotton: UIButton = {
         let showStatusBotton = UIButton()
         showStatusBotton.setTitle("Show Status", for: .normal)
         showStatusBotton.setTitleColor(.white, for: .normal)

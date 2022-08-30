@@ -11,12 +11,12 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let profileHeader: ProfileHeaderView = {
+    private lazy var profileHeader: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
         return profileHeader
     }()
     
-    let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .white
@@ -56,3 +56,4 @@ class ProfileViewController: UIViewController {
         profileHeader.frame = self.view.frame
     }
 }
+

@@ -13,7 +13,7 @@ class InfoViewController : UIViewController{
     
     let alertController = UIAlertController(title: "hi", message: "What's up?)", preferredStyle: .alert)
     
-    private let buttonAlert: UIButton = {
+    private lazy var buttonAlert: UIButton = {
         let button = UIButton()
         button.setTitle("Alert", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)

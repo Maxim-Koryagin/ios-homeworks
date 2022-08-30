@@ -9,14 +9,18 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    // Создание экземпляров
+    // MARK: - Properties
+    
     var firstTabNavidationController: UINavigationController!
     var secondTabNavigationController: UINavigationController!
     
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
+    
+    // MARK: - Methods
     
     private func setupUI() {
         
