@@ -5,7 +5,6 @@
 //  Created by kosmokos I on 19.08.2022.
 //
 import UIKit
-import TinyConstraints
 
 class ProfileHeaderView: UIView {
     
@@ -75,8 +74,8 @@ class ProfileHeaderView: UIView {
         
         NSLayoutConstraint.activate([
             
-            profileImage.height(130),
-            profileImage.width(130),
+            profileImage.heightAnchor.constraint(equalToConstant: 130),
+            profileImage.widthAnchor.constraint(equalToConstant: 130),
             profileImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             profileImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             
@@ -86,7 +85,7 @@ class ProfileHeaderView: UIView {
             statusLabel.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 45),
             statusLabel.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 13),
             
-            showStatusBotton.height(50),
+            showStatusBotton.heightAnchor.constraint(equalToConstant: 50),
             showStatusBotton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 34),
             showStatusBotton.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 16),
             showStatusBotton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),

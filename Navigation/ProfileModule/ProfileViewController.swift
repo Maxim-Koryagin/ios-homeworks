@@ -5,7 +5,6 @@
 //  Created by Maxim Koryagin on 14.08.2022.
 //
 import UIKit
-import TinyConstraints
 
 class ProfileViewController: UIViewController {
     
@@ -44,7 +43,7 @@ class ProfileViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            profileHeader.height(220),
+            profileHeader.heightAnchor.constraint(equalToConstant: 220),
             profileHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             profileHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0),
             profileHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
