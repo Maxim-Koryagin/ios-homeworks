@@ -18,7 +18,6 @@
 		6A574C9828A9689B00C2865A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A574C9728A9689B00C2865A /* FeedViewController.swift */; };
 		6A574C9A28A968AD00C2865A /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A574C9928A968AD00C2865A /* FeedModel.swift */; };
 		6A574C9C28A968D900C2865A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A574C9B28A968D900C2865A /* ProfileViewController.swift */; };
-		6A854F8F28B26F39005FA208 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 6A854F8E28B26F39005FA208 /* TinyConstraints */; };
 		6A99513D28AA672E005FC41C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A99513C28AA672E005FC41C /* PostModel.swift */; };
 		6A99513F28AAA848005FC41C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A99513E28AAA848005FC41C /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -46,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A854F8F28B26F39005FA208 /* TinyConstraints in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +145,6 @@
 			);
 			name = Navigation;
 			packageProductDependencies = (
-				6A854F8E28B26F39005FA208 /* TinyConstraints */,
 			);
 			productName = Navigation;
 			productReference = 6A574C7728A91D5C00C2865A /* Navigation.app */;
@@ -178,7 +175,6 @@
 			);
 			mainGroup = 6A574C6E28A91D5C00C2865A;
 			packageReferences = (
-				6A854F8D28B26F39005FA208 /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 			);
 			productRefGroup = 6A574C7828A91D5C00C2865A /* Products */;
 			projectDirPath = "";
@@ -424,25 +420,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		6A854F8D28B26F39005FA208 /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/roberthein/TinyConstraints.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		6A854F8E28B26F39005FA208 /* TinyConstraints */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A854F8D28B26F39005FA208 /* XCRemoteSwiftPackageReference "TinyConstraints" */;
-			productName = TinyConstraints;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6A574C6F28A91D5C00C2865A /* Project object */;
 }
