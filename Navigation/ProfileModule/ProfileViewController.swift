@@ -11,8 +11,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Properties
     
     private let profileHeader: ProfileHeaderView = {
-        let profileHeader = ProfileHeaderView()
-        return profileHeader
+        return ProfileHeaderView()
     }()
     
     let titleLabel: UILabel = {
@@ -46,6 +45,6 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        profileHeader.frame = self.view.frame
+        profileHeader.frame = view.frame
     }
 }
