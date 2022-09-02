@@ -13,7 +13,7 @@ class PostViewController : UIViewController {
     
     var dataSourse = PostModel.init(title: "Post")
 
-    let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
            let label = UILabel()
            label.textColor = .white
            label.translatesAutoresizingMaskIntoConstraints = false

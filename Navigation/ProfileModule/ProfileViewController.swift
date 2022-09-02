@@ -10,11 +10,11 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let profileHeader: ProfileHeaderView = {
-        return ProfileHeaderView()
-    }()
+    private lazy var profileHeader: ProfileHeaderView = {
+        let profileHeader = ProfileHeaderView()
+        return profileHeader
     
-    let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
         label.textColor = .white
@@ -30,17 +30,23 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemCyan
         setupConstraints()
         
-        view.addSubview(profileHeader)
     }
     
     //MARK: - Methods
     
     func setupConstraints(){
         view.addSubview(titleLabel)
+        view.addSubview(profileHeader)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            profileHeader.heightAnchor.constraint(equalToConstant: 220),
+            profileHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            profileHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0),
+            profileHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            
         ])
     }
     
@@ -48,3 +54,4 @@ class ProfileViewController: UIViewController {
         profileHeader.frame = view.frame
     }
 }
+

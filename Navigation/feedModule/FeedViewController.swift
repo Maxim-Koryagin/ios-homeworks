@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     
     var dataSource = FeedModel(title: "Feed")
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = ""
         label.textColor = .white
@@ -21,7 +21,7 @@ class FeedViewController: UIViewController {
         return label
     }()
     
-    private let button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Show Post", for: .normal)
         button.setTitleColor(UIColor.black, for: .application)
