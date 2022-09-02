@@ -13,7 +13,6 @@ class ProfileViewController: UIViewController {
     private lazy var profileHeader: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
         return profileHeader
-    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -52,7 +51,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        profileHeader.frame = self.view.frame
+        profileHeader.frame = view.frame
     }
 }
 
