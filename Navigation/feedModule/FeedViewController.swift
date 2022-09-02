@@ -11,7 +11,7 @@ class FeedViewController: UIViewController {
     
     // MARK: - Properties
     
-    var dataSource = FeedModel(title: "Главная")
+    var dataSource = FeedModel(title: "Feed")
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -59,10 +59,8 @@ class FeedViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
-        NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
