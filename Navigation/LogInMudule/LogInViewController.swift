@@ -6,7 +6,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
+class LogInViewController: UIViewController {
     
     // MARK: Properties
     
@@ -55,15 +55,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         textField.layer.borderWidth = 0.8
         textField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: textField.frame.height))
         textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.leftViewMode = .always
-        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.leftViewMode = .always
         textField.backgroundColor = .systemGray6
         textField.borderStyle = .roundedRect
         textField.textColor = .black
@@ -73,7 +70,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         textField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: textField.frame.height))
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.isSecureTextEntry = true
-        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
