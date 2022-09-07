@@ -8,7 +8,16 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    // MARK: - Properties
+    // MARK: Properties
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Profile"
+        label.font = UIFont(name: "system", size: 20)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     private lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -20,6 +29,7 @@ class ProfileHeaderView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
     private lazy var profileName: UILabel = {
         let profileName = UILabel()
         profileName.text = "Jdun"
@@ -28,6 +38,7 @@ class ProfileHeaderView: UIView {
         profileName.translatesAutoresizingMaskIntoConstraints = false
         return profileName
     }()
+    
     private lazy var statusLabel: UILabel = {
         let statuslabel = UILabel()
         statuslabel.text = "Waiting for something..."
@@ -36,6 +47,7 @@ class ProfileHeaderView: UIView {
         statuslabel.translatesAutoresizingMaskIntoConstraints = false
         return statuslabel
     }()
+    
     private lazy var showStatusBotton: UIButton = {
         let showStatusBotton = UIButton()
         showStatusBotton.setTitle("Show Status", for: .normal)
@@ -49,7 +61,7 @@ class ProfileHeaderView: UIView {
         return showStatusBotton
     }()
     
-    //MARK: - Life Cycle
+    //MARK: Life Cycle
     
     
     override func draw(_ rect: CGRect) {
@@ -57,16 +69,16 @@ class ProfileHeaderView: UIView {
     }
 
     
-    //MARK: - Methods
+    //MARK: Methods
     
     func setupUI() {
-
         addTargets()
         setupConstraints()
     }
     
     func setupConstraints() {
         
+        addSubview(titleLabel)
         addSubview(profileImage)
         addSubview(profileName)
         addSubview(statusLabel)
@@ -74,12 +86,15 @@ class ProfileHeaderView: UIView {
         
         NSLayoutConstraint.activate([
             
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 3),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
             profileImage.heightAnchor.constraint(equalToConstant: 130),
             profileImage.widthAnchor.constraint(equalToConstant: 130),
-            profileImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            profileImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            profileImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            profileImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
-            profileName.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
+            profileName.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             profileName.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 13),
             
             statusLabel.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 45),
@@ -88,8 +103,8 @@ class ProfileHeaderView: UIView {
             showStatusBotton.heightAnchor.constraint(equalToConstant: 50),
             showStatusBotton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 34),
             showStatusBotton.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 16),
-            showStatusBotton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            showStatusBotton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+            showStatusBotton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            showStatusBotton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
         
     }

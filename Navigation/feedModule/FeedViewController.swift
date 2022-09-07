@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: Properties
     
     var dataSource = FeedModel(title: "Feed")
     
@@ -31,14 +31,14 @@ class FeedViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Life cycle
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: Methods
     
     func setupUI() {
         setupConstraints()

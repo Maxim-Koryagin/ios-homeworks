@@ -9,7 +9,7 @@ import UIKit
 
 class InfoViewController : UIViewController{
     
-    // MARK: - Properties
+    // MARK: Properties
     
     let alertController = UIAlertController(title: "hi", message: "What's up?)", preferredStyle: .alert)
     
@@ -23,7 +23,7 @@ class InfoViewController : UIViewController{
         return button
     }()
     
-    // MARK: - Life cycle
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class InfoViewController : UIViewController{
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: Methods
     
     func setupUI(){
         view.addSubview(buttonAlert)
