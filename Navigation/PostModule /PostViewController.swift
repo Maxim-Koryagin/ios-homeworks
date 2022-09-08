@@ -31,7 +31,7 @@ class PostViewController : UIViewController {
 
     //MARK: Methods
     
-    func setupUI(){
+   private func setupUI(){
         view.addSubview(titleLabel)
         titleLabel.text = dataSourse.title
         

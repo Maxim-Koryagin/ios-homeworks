@@ -11,7 +11,7 @@ class InfoViewController : UIViewController{
     
     // MARK: Properties
     
-    let alertController = UIAlertController(title: "hi", message: "What's up?)", preferredStyle: .alert)
+   private let alertController = UIAlertController(title: "hi", message: "What's up?)", preferredStyle: .alert)
     
     private lazy var buttonAlert: UIButton = {
         let button = UIButton()
@@ -34,7 +34,7 @@ class InfoViewController : UIViewController{
     
     // MARK: Methods
     
-    func setupUI(){
+    private func setupUI(){
         view.addSubview(buttonAlert)
         
         NSLayoutConstraint.activate([
@@ -47,7 +47,7 @@ class InfoViewController : UIViewController{
         }))
     }
     
-    func addTargets(){
+    private func addTargets(){
         buttonAlert.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
     }
     

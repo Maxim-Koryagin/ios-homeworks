@@ -3,7 +3,6 @@
 //  Navigation
 //
 //  Created by Maxim Koryagin on 14.08.2022.
-//
 
 import UIKit
 
@@ -40,7 +39,7 @@ class FeedViewController: UIViewController {
     
     // MARK: Methods
     
-    func setupUI() {
+   private func setupUI() {
         setupConstraints()
         addTargets()
         titleLabel.text = dataSource.title
@@ -49,13 +48,13 @@ class FeedViewController: UIViewController {
     }
     
     
-    func addTargets() {
+    private func addTargets() {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
     }
     
-    func setupConstraints() {
-        view.addSubview(titleLabel)
+    private func setupConstraints() {
         view.addSubview(button)
+        view.addSubview(titleLabel)
 
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),

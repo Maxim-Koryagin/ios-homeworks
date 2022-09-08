@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
         return profileHeader
     }()
     
-    private var posts: [Posts] = []
+    private var dataSource: [Posts] = []
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -44,7 +44,7 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Methods
     
-    func setupConstraints(){
+    private func setupConstraints(){
         navigationController?.navigationBar.isHidden = true
         view.addSubview(tableView)
         
@@ -56,11 +56,11 @@ class ProfileViewController: UIViewController {
         ])
     }
     
-    func addPosts() {
-        posts.append(.init(author: "CarGuy", description: "Nissan r36 concept", image: "Nissan r36", likes: 346, views: 1528))
-        posts.append(.init(author: "Hi Tech", description: "New macbook air!", image: "macbook m2", likes: 1556, views: 3694))
-        posts.append(.init(author: "querly", description: "new look", image: "supermoto", likes: 234, views: 863))
-        posts.append(.init(author: "JJ", description: "Clear :)", image: "table", likes: 323, views: 1352))
+    private func addPosts() {
+        dataSource.append(.init(author: "CarGuy", description: "Nissan r36 concept", image: "Nissan r36", likes: 346, views: 1528))
+        dataSource.append(.init(author: "Hi Tech", description: "New macbook air!", image: "macbook m2", likes: 1556, views: 3694))
+        dataSource.append(.init(author: "querly", description: "new look", image: "supermoto", likes: 234, views: 863))
+        dataSource.append(.init(author: "JJ", description: "Clear :)", image: "table", likes: 323, views: 1352))
     }
     
 }
@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,8 +80,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         
-        let posts = posts[indexPath.row]
-        cell.setup(with: posts)
+        let dataSource = dataSource[indexPath.row]
+        cell.setup(dataSource)
         
         return cell
     }

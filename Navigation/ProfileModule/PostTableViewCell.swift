@@ -15,7 +15,7 @@ class PostTableViewCell: UITableViewCell {
         label.backgroundColor = .clear
         label.textColor = .black
         label.numberOfLines = 2
-        label.font = UIFont(name: "System", size: 20)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,7 +30,7 @@ class PostTableViewCell: UITableViewCell {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "System", size: 18)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .systemGray
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,8 +69,12 @@ class PostTableViewCell: UITableViewCell {
 
     private func setupConstraints() {
         contentView.backgroundColor = .white
-        contentView.addSubviews(authorLabel, image, descriptionLabel, likesLabel, viewsLabel)
-
+        contentView.addSubview(authorLabel)
+        contentView.addSubview(image)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(likesLabel)
+        contentView.addSubview(viewsLabel)
+        
         NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -97,7 +101,7 @@ class PostTableViewCell: UITableViewCell {
 
     }
 
-    func setup(with posts: Posts) {
+    func setup(_ posts: Posts) {
         self.authorLabel.text = posts.author
         self.image.image = UIImage(named: posts.image)
         self.descriptionLabel.text = posts.description
@@ -105,12 +109,4 @@ class PostTableViewCell: UITableViewCell {
         self.likesLabel.text = "Likes: " + String(posts.likes)
     }
 
-}
-
-extension UIView {
-    
-    func addSubviews(_ subviews: UIView...) {
-        subviews.forEach { addSubview ( $0 ) }
-    }
-    
 }
