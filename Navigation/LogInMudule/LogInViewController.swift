@@ -89,17 +89,25 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+    }
+    
+    // MARK: Methods
+    
+    private func setupUI(){
         view.backgroundColor = .white
+        setupNavBar()
+        setupViews()
         setupConstraints()
         setupGestures()
         addTargets()
     }
     
-    // MARK: Methods
-    
-    private func setupConstraints(){
+    private func setupNavBar(){
         navigationController?.navigationBar.isHidden = true
-        
+    }
+    
+    private func setupViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(imageView)
@@ -107,6 +115,9 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logInbutton)
         stackView.addArrangedSubview(loginTextField)
         stackView.addArrangedSubview(passwordTextField)
+    }
+    
+    private func setupConstraints(){
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -166,20 +177,20 @@ class LogInViewController: UIViewController {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
-
+    
     @objc private func didShowKeyboard(_ notification: Notification) {
-          if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-              let keyboardRectangle = keyboardFrame.cgRectValue
-              let keyboardHeight = keyboardRectangle.height
-              
-              let loginButtonBottomPointY = logInbutton.frame.origin.y + logInbutton.frame.height
-              
-              let keyboardOriginY = view.frame.height - keyboardHeight
-              let yOffset = keyboardOriginY < loginButtonBottomPointY ? loginButtonBottomPointY - keyboardOriginY + 16 : 0
-              
-              scrollView.contentOffset = CGPoint(x: 0, y: yOffset)
-          }
-      }
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            let loginButtonBottomPointY = logInbutton.frame.origin.y + logInbutton.frame.height
+            
+            let keyboardOriginY = view.frame.height - keyboardHeight
+            let yOffset = keyboardOriginY < loginButtonBottomPointY ? loginButtonBottomPointY - keyboardOriginY + 16 : 0
+            
+            scrollView.contentOffset = CGPoint(x: 0, y: yOffset)
+        }
+    }
     
     @objc private func didHideKeyboard(_ notification: Notification) {
         self.forcedHidingKeyboard()

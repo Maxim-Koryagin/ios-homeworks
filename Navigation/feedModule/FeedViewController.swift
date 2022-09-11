@@ -39,31 +39,34 @@ class FeedViewController: UIViewController {
     
     // MARK: Methods
     
-   private func setupUI() {
+    private func setupUI() {
+        view.backgroundColor = .systemCyan
+        
+        setupViews()
         setupConstraints()
         addTargets()
         titleLabel.text = dataSource.title
-        
-        view.backgroundColor = .systemCyan
     }
-    
     
     private func addTargets() {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
     }
     
-    private func setupConstraints() {
+    private func setupViews() {
         view.addSubview(button)
         view.addSubview(titleLabel)
-
+    }
+    
+    private func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
+            
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-
+        
     }
     
     @objc func showDetailController() {

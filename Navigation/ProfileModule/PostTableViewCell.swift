@@ -58,7 +58,7 @@ class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setupConstraints()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -67,14 +67,22 @@ class PostTableViewCell: UITableViewCell {
 
     // MARK: Methods
 
-    private func setupConstraints() {
+    private func setupUI(){
+        setupViews()
+        setupConstraints()
         contentView.backgroundColor = .white
+    }
+    
+    private func setupViews(){
         contentView.addSubview(authorLabel)
         contentView.addSubview(image)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(likesLabel)
         contentView.addSubview(viewsLabel)
-        
+    }
+    
+    private func setupConstraints() {
+  
         NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

@@ -67,22 +67,25 @@ class ProfileHeaderView: UIView {
     override func draw(_ rect: CGRect) {
         setupUI()
     }
-
+    
     
     //MARK: Methods
     
     func setupUI() {
-        addTargets()
+        setupViews()
         setupConstraints()
+        addTargets()
     }
     
-    func setupConstraints() {
-        
+    private func setupViews(){
         addSubview(titleLabel)
         addSubview(profileImage)
         addSubview(profileName)
         addSubview(statusLabel)
         addSubview(showStatusBotton)
+    }
+    
+    func setupConstraints() {
         
         NSLayoutConstraint.activate([
             
@@ -109,12 +112,12 @@ class ProfileHeaderView: UIView {
         
     }
     
-    @objc func buttonPressed() {
-        print(statusLabel.text ?? "No text")
-    }
-    
     func addTargets(){
         showStatusBotton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    }
+    
+    @objc func buttonPressed() {
+        print(statusLabel.text ?? "No text")
     }
     
 }

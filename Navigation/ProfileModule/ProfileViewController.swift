@@ -37,16 +37,28 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemCyan
-        setupConstraints()
-        addPosts()
+        setupUI()
     }
     
     //MARK: - Methods
     
-    private func setupConstraints(){
+    private func setupUI(){
+        view.backgroundColor = .systemCyan
+        setupNavBar()
+        setupViews()
+        setupConstraints()
+        addPosts()
+    }
+    
+    private func setupNavBar(){
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    private func setupViews(){
         view.addSubview(tableView)
+    }
+    
+    private func setupConstraints(){
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
