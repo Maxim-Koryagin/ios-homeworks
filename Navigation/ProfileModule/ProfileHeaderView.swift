@@ -63,7 +63,6 @@ class ProfileHeaderView: UIView {
     
     //MARK: Life Cycle
     
-    
     override func draw(_ rect: CGRect) {
         setupUI()
     }
