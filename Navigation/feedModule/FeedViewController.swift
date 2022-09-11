@@ -3,13 +3,12 @@
 //  Navigation
 //
 //  Created by Maxim Koryagin on 14.08.2022.
-//
 
 import UIKit
 
 class FeedViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: Properties
     
     var dataSource = FeedModel(title: "Feed")
     
@@ -31,40 +30,43 @@ class FeedViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Life cycle
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: Methods
     
-    func setupUI() {
+    private func setupUI() {
+        view.backgroundColor = .systemCyan
+        
+        setupViews()
         setupConstraints()
         addTargets()
         titleLabel.text = dataSource.title
-        
-        view.backgroundColor = .systemCyan
     }
     
-    
-    func addTargets() {
+    private func addTargets() {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
     }
     
-    func setupConstraints() {
-        view.addSubview(titleLabel)
+    private func setupViews() {
         view.addSubview(button)
-
+        view.addSubview(titleLabel)
+    }
+    
+    private func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
+            
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-
+        
     }
     
     @objc func showDetailController() {

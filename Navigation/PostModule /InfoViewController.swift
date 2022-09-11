@@ -9,9 +9,9 @@ import UIKit
 
 class InfoViewController : UIViewController{
     
-    // MARK: - Properties
+    // MARK: Properties
     
-    let alertController = UIAlertController(title: "hi", message: "What's up?)", preferredStyle: .alert)
+   private let alertController = UIAlertController(title: "hi", message: "What's up?)", preferredStyle: .alert)
     
     private lazy var buttonAlert: UIButton = {
         let button = UIButton()
@@ -23,7 +23,7 @@ class InfoViewController : UIViewController{
         return button
     }()
     
-    // MARK: - Life cycle
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +32,9 @@ class InfoViewController : UIViewController{
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: Methods
     
-    func setupUI(){
+    private func setupUI(){
         view.addSubview(buttonAlert)
         
         NSLayoutConstraint.activate([
@@ -47,7 +47,7 @@ class InfoViewController : UIViewController{
         }))
     }
     
-    func addTargets(){
+    private func addTargets(){
         buttonAlert.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
     }
     

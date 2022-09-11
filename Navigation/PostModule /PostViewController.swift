@@ -9,7 +9,7 @@ import UIKit
 
 class PostViewController : UIViewController {
     
-    // MARK: - Properties
+    // MARK: Properties
     
     var dataSourse = PostModel.init(title: "Post")
 
@@ -21,7 +21,7 @@ class PostViewController : UIViewController {
        }()
 
     
-    //MARK: - Life cycle
+    //MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +29,9 @@ class PostViewController : UIViewController {
         setupUI()
        }
 
-    //MARK: - Methods
+    //MARK: Methods
     
-    func setupUI(){
+   private func setupUI(){
         view.addSubview(titleLabel)
         titleLabel.text = dataSourse.title
         

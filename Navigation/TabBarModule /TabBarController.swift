@@ -3,34 +3,32 @@
 //  Navigation
 //
 //  Created by Maxim Koryagin on 14.08.2022.
-//
 
 import UIKit
 
 class TabBarController: UITabBarController {
     
-    // MARK: - Properties
+    // MARK: Properties
     
     var firstTabNavidationController: UINavigationController!
     var secondTabNavigationController: UINavigationController!
     
-    // MARK: - Life cycle
+    // MARK: Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: Methods
     
     private func setupUI() {
         
-        // Создание рутовых экранов
         firstTabNavidationController = UINavigationController.init(rootViewController: FeedViewController())
-        secondTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
+        secondTabNavigationController = UINavigationController.init(rootViewController: LogInViewController())
         
-        self.viewControllers = [firstTabNavidationController, secondTabNavigationController]
+        viewControllers = [firstTabNavidationController, secondTabNavigationController]
         
-        // Стилизация Tab Bar'а
         let item1 = UITabBarItem(title: "Feed", image: UIImage(systemName: "square.grid.2x2"), tag: 0)
         let item2 = UITabBarItem(title: "Profile", image:  UIImage(systemName: "person"), tag: 1)
         
