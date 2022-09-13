@@ -23,8 +23,9 @@ class ProfileViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .systemCyan
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosTableViewCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCellID")
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "CustomCellID")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,6 +39,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
     }
     
     //MARK: - Methods
@@ -80,24 +85,28 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
+        dataSource.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCellID", for: indexPath) as? PostTableViewCell
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCellID", for: indexPath)
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosTableViewCell", for: indexPath)
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCellID", for: indexPath)
+                
+                return cell
+            }
+            
+            let dataSource = dataSource[indexPath.row - 1]
+            cell.setup(dataSource)
             
             return cell
         }
-        
-        let dataSource = dataSource[indexPath.row]
-        cell.setup(dataSource)
-        
-        return cell
     }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = profileHeader
         header.backgroundColor = .systemCyan
@@ -107,6 +116,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return  250
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
     }
     
 }
+
+
