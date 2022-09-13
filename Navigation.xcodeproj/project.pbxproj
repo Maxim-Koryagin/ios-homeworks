@@ -141,12 +141,12 @@
 				6A1196D928AFC40200698283 /* ProfileHeaderView.swift */,
 				6AAC70F228C75A0700453537 /* PostTableViewCell.swift */,
 				6AAC70F028C6144F00453537 /* ProfilePostModel.swift */,
-				6A7F784E28CF744300DE09F5 /* Photos */,
+				6A7F784E28CF744300DE09F5 /* PhotosModule */,
 			);
 			path = ProfileModule;
 			sourceTree = "<group>";
 		};
-		6A7F784E28CF744300DE09F5 /* Photos */ = {
+		6A7F784E28CF744300DE09F5 /* PhotosModule */ = {
 			isa = PBXGroup;
 			children = (
 				6A520D3528CDFFBF007F08E6 /* PhotosTableViewCell.swift */,
@@ -154,7 +154,7 @@
 				6A7F785128CF80A900DE09F5 /* PhotosCollectionViewCell.swift */,
 				6A7F785328CF82E000DE09F5 /* PhotoModel.swift */,
 			);
-			path = Photos;
+			path = PhotosModule;
 			sourceTree = "<group>";
 		};
 		6AAC70F428C75A2500453537 /* LogInMudule */ = {
