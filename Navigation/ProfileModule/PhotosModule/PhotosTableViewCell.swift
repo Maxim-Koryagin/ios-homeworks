@@ -78,7 +78,6 @@ class PhotosTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.image = UIImage(named: "4")
         image.layer.cornerRadius = 6
-        image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
