@@ -19,12 +19,13 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
-    private lazy var profileImage: UIImageView = {
+    lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "jdun")
         imageView.layer.cornerRadius = 65
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
