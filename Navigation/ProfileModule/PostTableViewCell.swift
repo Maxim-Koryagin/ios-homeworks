@@ -7,9 +7,9 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-
+    
     // MARK: Properties
-
+    
     private lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
