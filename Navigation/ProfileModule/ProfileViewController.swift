@@ -80,7 +80,13 @@ class ProfileViewController: UIViewController {
     //MARK: - Methods
     
     private func setupUI(){
+
+        #if DEBUG
+        view.backgroundColor = .white
+        #else
         view.backgroundColor = .systemCyan
+        #endif
+        
         setupNavBar()
         setupViews()
         setupConstraints()
