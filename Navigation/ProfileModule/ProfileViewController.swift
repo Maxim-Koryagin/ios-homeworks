@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
         let profileHeader = ProfileHeaderView()
         
         return profileHeader
+    }()
     
     private var dataSource: [Posts] = []
     
@@ -180,9 +181,9 @@ class ProfileViewController: UIViewController {
         dataSource.append(.init(author: "Hi Tech", description: "New macbook air!", image: "macbook m2", likes: 1556, views: 3694))
         dataSource.append(.init(author: "querly", description: "new look", image: "supermoto", likes: 234, views: 863))
         dataSource.append(.init(author: "JJ", description: "Clear :)", image: "table", likes: 323, views: 1352))
-    
+        
+    }
 }
-
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
