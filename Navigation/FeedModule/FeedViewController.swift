@@ -6,7 +6,7 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+final class FeedViewController: UIViewController {
     
     // MARK: Properties
     
@@ -14,7 +14,6 @@ class FeedViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -24,7 +23,7 @@ class FeedViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Show Post", for: .normal)
         button.setTitleColor(UIColor.black, for: .application)
-        button.backgroundColor =  .systemFill
+        button.backgroundColor = .systemFill
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -34,6 +33,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
     }
     

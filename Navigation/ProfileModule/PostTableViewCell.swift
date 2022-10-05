@@ -6,7 +6,7 @@
 
 import UIKit
 
-class PostTableViewCell: UITableViewCell {
+final class PostTableViewCell: UITableViewCell {
     
     // MARK: Properties
     
@@ -109,7 +109,7 @@ class PostTableViewCell: UITableViewCell {
 
     }
 
-    func setup(_ posts: Posts) {
+    func setup(_ posts: Post) {
         self.authorLabel.text = posts.author
         self.image.image = UIImage(named: posts.image)
         self.descriptionLabel.text = posts.description

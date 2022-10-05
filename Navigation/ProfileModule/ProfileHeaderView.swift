@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class ProfileHeaderView: UIView {
+final class ProfileHeaderView: UIView {
     
     // MARK: Properties
     
@@ -67,7 +67,6 @@ class ProfileHeaderView: UIView {
     override func draw(_ rect: CGRect) {
         setupUI()
     }
-    
     
     //MARK: Methods
     
