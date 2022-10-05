@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
         return profileHeader
     }()
     
-    private var dataSource: [Posts] = []
+    private var dataSource: [Post] = []
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -80,7 +80,13 @@ class ProfileViewController: UIViewController {
     //MARK: - Methods
     
     private func setupUI(){
+
+        #if DEBUG
+        view.backgroundColor = .white
+        #else
         view.backgroundColor = .systemCyan
+        #endif
+        
         setupNavBar()
         setupViews()
         setupConstraints()

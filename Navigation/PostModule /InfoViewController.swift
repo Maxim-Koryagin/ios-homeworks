@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoViewController : UIViewController{
+final class InfoViewController : UIViewController{
     
     // MARK: Properties
     
@@ -44,6 +44,7 @@ class InfoViewController : UIViewController{
         
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             print("Alert")
+            self.dismiss(animated: true)
         }))
     }
     

@@ -6,20 +6,20 @@
 //
 
 import UIKit
+import StorageService
 
-class PostViewController : UIViewController {
+final class PostViewController: UIViewController {
     
     // MARK: Properties
     
-    var dataSourse = PostModel.init(title: "Post")
-
+    var dataSourse = PostModel(title: "Post")
+    
     private lazy var titleLabel: UILabel = {
-           let label = UILabel()
-           label.textColor = .white
-           label.translatesAutoresizingMaskIntoConstraints = false
-           return label
-       }()
-
+        let label = UILabel()
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     //MARK: Life cycle
     
@@ -27,11 +27,11 @@ class PostViewController : UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemCyan
         setupUI()
-       }
-
+    }
+    
     //MARK: Methods
     
-   private func setupUI(){
+    private func setupUI(){
         view.addSubview(titleLabel)
         titleLabel.text = dataSourse.title
         
@@ -52,7 +52,7 @@ class PostViewController : UIViewController {
     
 }
 
-    
+
 
 
 

@@ -6,7 +6,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+final class LogInViewController: UIViewController {
     
     // MARK: Properties
     
@@ -96,6 +96,7 @@ class LogInViewController: UIViewController {
     
     private func setupUI(){
         view.backgroundColor = .white
+        
         setupNavBar()
         setupViews()
         setupConstraints()
