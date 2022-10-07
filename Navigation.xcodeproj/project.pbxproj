@@ -20,6 +20,7 @@
 		6A574C9828A9689B00C2865A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A574C9728A9689B00C2865A /* FeedViewController.swift */; };
 		6A574C9A28A968AD00C2865A /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A574C9928A968AD00C2865A /* FeedModel.swift */; };
 		6A574C9C28A968D900C2865A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A574C9B28A968D900C2865A /* ProfileViewController.swift */; };
+		6A65435B28F079D400D9AABF /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 6A65435A28F079D400D9AABF /* iOSIntPackage */; };
 		6A7F785028CF74D600DE09F5 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F784F28CF74D600DE09F5 /* PhotosViewController.swift */; };
 		6A7F785228CF80A900DE09F5 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F785128CF80A900DE09F5 /* PhotosCollectionViewCell.swift */; };
 		6A7F785428CF82E000DE09F5 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F785328CF82E000DE09F5 /* PhotoModel.swift */; };
@@ -120,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A65435B28F079D400D9AABF /* iOSIntPackage in Frameworks */,
 				6AFDD10528EC7044001781FE /* StorageService.framework in Frameworks */,
 				7628A8B305350E5356110DB1 /* Pods_Navigation.framework in Frameworks */,
 			);
@@ -165,7 +167,6 @@
 				53FA312F52276E038719829D /* Pods-StorageService-StorageServiceTests.debug.xcconfig */,
 				8D90E06BD6C407DFC986F626 /* Pods-StorageService-StorageServiceTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -323,6 +324,9 @@
 				6AFDD10428EC7044001781FE /* PBXTargetDependency */,
 			);
 			name = Navigation;
+			packageProductDependencies = (
+				6A65435A28F079D400D9AABF /* iOSIntPackage */,
+			);
 			productName = Navigation;
 			productReference = 6A574C7728A91D5C00C2865A /* Navigation.app */;
 			productType = "com.apple.product-type.application";
@@ -397,6 +401,9 @@
 				Base,
 			);
 			mainGroup = 6A574C6E28A91D5C00C2865A;
+			packageReferences = (
+				6A65435928F079D400D9AABF /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+			);
 			productRefGroup = 6A574C7828A91D5C00C2865A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -711,8 +718,8 @@
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -744,8 +751,8 @@
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -778,7 +785,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -788,9 +795,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "theKosmokos-icloud.com.StorageService";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -811,7 +821,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -821,9 +831,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "theKosmokos-icloud.com.StorageService";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -911,6 +924,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6A65435928F079D400D9AABF /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TrueMax/iOSIntPackage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6A65435A28F079D400D9AABF /* iOSIntPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A65435928F079D400D9AABF /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
+			productName = iOSIntPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6A574C6F28A91D5C00C2865A /* Project object */;
 }

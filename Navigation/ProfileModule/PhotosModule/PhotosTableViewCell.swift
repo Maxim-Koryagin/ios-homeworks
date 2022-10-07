@@ -4,7 +4,6 @@
 //
 //  Created by kosmokos I on 11.09.2022.
 //
-
 import UIKit
 
 final class PhotosTableViewCell: UITableViewCell {
@@ -135,4 +134,5 @@ final class PhotosTableViewCell: UITableViewCell {
         ])
 
     }
+    
 }

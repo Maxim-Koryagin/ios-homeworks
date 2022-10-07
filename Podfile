@@ -9,12 +9,3 @@ target 'Navigation' do
 
 end
 
-target 'StorageService' do
-  
-  use_frameworks!
-
-  target 'StorageServiceTests' do
-   
-  end
-
-end
