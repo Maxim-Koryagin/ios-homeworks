@@ -16,6 +16,19 @@ final class ProfileViewController: UIViewController {
         return profileHeader
     }()
     
+    let userService: UserService
+    let name: String
+    
+    init(userService: UserService, name: String) {
+        self.userService = userService
+        self.name = name
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private var dataSource: [Post] = []
     
     private lazy var tableView: UITableView = {
@@ -219,12 +232,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         let header = profileHeader
         header.backgroundColor = .systemCyan
         
+        let user = userService.checkLogin(login: name)
+        header.profileName.text = user?.fullName
+        header.profileImage.image = user?.avatar
+        header.statusLabel.text = user?.status
+        
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return  250
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

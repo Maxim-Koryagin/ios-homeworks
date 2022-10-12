@@ -10,7 +10,7 @@ final class ProfileHeaderView: UIView {
     
     // MARK: Properties
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
         label.font = UIFont(name: "system", size: 20)
@@ -31,7 +31,7 @@ final class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    private lazy var profileName: UILabel = {
+    lazy var profileName: UILabel = {
         let profileName = UILabel()
         profileName.text = "Jdun"
         profileName.font = UIFont(name: "Bold", size: 18)
@@ -40,7 +40,7 @@ final class ProfileHeaderView: UIView {
         return profileName
     }()
     
-    private lazy var statusLabel: UILabel = {
+    lazy var statusLabel: UILabel = {
         let statuslabel = UILabel()
         statuslabel.text = "Waiting for something..."
         statuslabel.font = UIFont(name: "Bold", size: 14)
@@ -49,7 +49,7 @@ final class ProfileHeaderView: UIView {
         return statuslabel
     }()
     
-    private lazy var showStatusBotton: UIButton = {
+    lazy var showStatusBotton: UIButton = {
         let showStatusBotton = UIButton()
         showStatusBotton.setTitle("Show Status", for: .normal)
         showStatusBotton.setTitleColor(.white, for: .normal)
