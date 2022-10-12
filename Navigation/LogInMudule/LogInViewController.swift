@@ -159,12 +159,36 @@ final class LogInViewController: UIViewController {
     }
     
     @objc private func showProfileView() {
-        let profileViewController = ProfileViewController()
-        if loginTextField.text != "" && passwordTextField.text != "" {
+        
+        #if DEBUG
+        let user = TestUserService()
+        #else
+        let user: CurrentUserService = {
+            let user = CurrentUserService()
+            user.user.login = "qwerty"
+            user.user.fullName = "Mark Blah-Blah-Blah"
+            user.user.avatar = UIImage(named: "jdun")
+            user.user.status = "Waiting for something..."
+            return user
+        }()
+        #endif
+        
+        let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
+        
+        if loginTextField.text == user.user.login {
             navigationController?.pushViewController(profileViewController, animated: true)
         } else {
-            print("You need to write login and password")
+            print("incorrect login")
+            
+            let alertController = UIAlertController(title: "incorrect login", message: "", preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.dismiss(animated: true)
+            }))
+            
+            self.present(alertController, animated: true, completion: nil)
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
