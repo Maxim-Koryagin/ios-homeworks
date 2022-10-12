@@ -117,8 +117,6 @@ final class PostTableViewCell: UITableViewCell {
         self.viewsLabel.text = "Views: " + String(posts.views)
         self.likesLabel.text = "Likes: " + String(posts.likes)
         
-        
-        // Create filter for images
         let processor = ImageProcessor()
         
         guard let imageView = image.image else { return }
