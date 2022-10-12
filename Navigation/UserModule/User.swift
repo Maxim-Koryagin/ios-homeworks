@@ -13,45 +13,37 @@ protocol UserService {
 
 final class User {
 
-    let login: String
-    let fullName: String
-    let avatar: UIImage
-    let status: String
-
-    init(login: String, fullName: String, avatar: UIImage, status: String) {
-        self.login = login
-        self.fullName = fullName
-        self.avatar = avatar
-        self.status = status
-    }
+    var login: String?
+    var fullName: String?
+    var avatar: UIImage?
+    var status: String?
     
 }
 
 final class CurrentUserService: UserService {
     
-    let user = User(login: "qwerty", fullName: "Mark Zuckerberg", avatar: UIImage(named: "jdun")!, status: "waiting for something...")
+    let user = User()
     
     func checkLogin(login: String) -> User? {
-        
-        if user.login == login {
-            return user
-        } else {
-            return nil
-        }
+        return user.login == login ? user : nil
     }
 
 }
 
 
-class TestUserService: UserService {
+final class TestUserService: UserService {
     
-    let user = User(login: "1234", fullName: "Test User", avatar: UIImage(named: "emptyAvatar")!, status: "Test")
+    let user: User = {
+        let user = User()
+        user.login = "1234"
+        user.fullName = "Test fullname"
+        user.status = "Test status"
+        user.avatar = UIImage(named: "emptyAvatar")
+        return user
+    }()
     
     func checkLogin(login: String) -> User? {
         return user
     }
-    
-    
-    
     
 }

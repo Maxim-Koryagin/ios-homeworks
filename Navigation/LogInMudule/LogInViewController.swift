@@ -163,7 +163,14 @@ final class LogInViewController: UIViewController {
         #if DEBUG
         let user = TestUserService()
         #else
-        let user = CurrentUserService()
+        let user: CurrentUserService = {
+            let user = CurrentUserService()
+            user.user.login = "qwerty"
+            user.user.fullName = "Mark Blah-Blah-Blah"
+            user.user.avatar = UIImage(named: "jdun")
+            user.user.status = "Waiting for something..."
+            return user
+        }()
         #endif
         
         let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
