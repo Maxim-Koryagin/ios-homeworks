@@ -166,7 +166,7 @@ final class LogInViewController: UIViewController {
         let user: CurrentUserService = {
             let user = CurrentUserService()
             user.user.login = "qwerty"
-            user.user.fullName = "Mark Blah-Blah-Blah"
+            user.user.fullName = "Mark User"
             user.user.avatar = UIImage(named: "jdun")
             user.user.status = "Waiting for something..."
             return user
