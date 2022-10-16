@@ -30,7 +30,6 @@ final class CurrentUserService: UserService {
 
 }
 
-
 final class TestUserService: UserService {
     
     let user: User = {
