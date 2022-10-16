@@ -6,10 +6,12 @@
 
 import UIKit
 
-final class LogInViewController: UIViewController {
+var loginDelegate: LoginViewControllerDelegate?
+
+final class LoginViewController: UIViewController {
     
     // MARK: Properties
-    
+   
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
@@ -165,8 +167,8 @@ final class LogInViewController: UIViewController {
         #else
         let user: CurrentUserService = {
             let user = CurrentUserService()
-            user.user.login = "qwerty"
-            user.user.fullName = "Mark Blah-Blah-Blah"
+            user.user.login = "mark"
+            user.user.fullName = "Mark User"
             user.user.avatar = UIImage(named: "jdun")
             user.user.status = "Waiting for something..."
             return user
@@ -175,17 +177,17 @@ final class LogInViewController: UIViewController {
         
         let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
         
-        if loginTextField.text == user.user.login {
+        if loginDelegate?.check(login: loginTextField.text!, password: passwordTextField.text!) == true {
             navigationController?.pushViewController(profileViewController, animated: true)
         } else {
-            print("incorrect login")
-            
-            let alertController = UIAlertController(title: "incorrect login", message: "", preferredStyle: .alert)
-            
+            print("incorrect login or password")
+
+            let alertController = UIAlertController(title: "incorrect login or password", message: "", preferredStyle: .alert)
+
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 self.dismiss(animated: true)
             }))
-            
+
             self.present(alertController, animated: true, completion: nil)
         }
         
