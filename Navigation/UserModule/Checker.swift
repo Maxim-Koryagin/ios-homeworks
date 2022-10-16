@@ -12,15 +12,15 @@ final class Checker {
     static let shared = Checker()
     
     private let currentLogin: String
-    private let currentPassword1: String
-    
+    private let currentPassword: String
+
     private init() {
         currentLogin = "mark"
-        currentPassword1 = "1234"
+        currentPassword = "1234"
     }
-    
+
     func check(login: String, password: String) -> Bool {
-        return login == currentLogin && password == currentPassword1 ? true : false
+        return login == currentLogin && password == currentPassword ? true : false
     }
-    
+
 }

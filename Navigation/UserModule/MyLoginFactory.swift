@@ -8,8 +8,7 @@
 struct MyLoginFactory: Loginfactory {
     
     func makeLoginInspector() -> LoginInspector {
-        let inspector = LoginInspector()
-        return inspector
+       return LoginInspector()
     }
     
 }

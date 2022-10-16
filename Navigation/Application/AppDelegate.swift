@@ -11,8 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let myLoginFactory = MyLoginFactory()
-        loginDelegate = myLoginFactory.makeLoginInspector()
+        loginDelegate = MyLoginFactory().makeLoginInspector()
         
         return true
     }
