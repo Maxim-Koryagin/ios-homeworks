@@ -5,6 +5,7 @@
 //  Created by kosmokos I on 06.09.2022.
 
 import UIKit
+import iOSIntPackage
 
 final class PostTableViewCell: UITableViewCell {
     
@@ -108,13 +109,21 @@ final class PostTableViewCell: UITableViewCell {
         ])
 
     }
-
+    
     func setup(_ posts: Post) {
         self.authorLabel.text = posts.author
         self.image.image = UIImage(named: posts.image)
         self.descriptionLabel.text = posts.description
         self.viewsLabel.text = "Views: " + String(posts.views)
         self.likesLabel.text = "Likes: " + String(posts.likes)
+        
+        let processor = ImageProcessor()
+        
+        guard let imageView = image.image else { return }
+        processor.processImage(sourceImage: imageView, filter: .chrome) { filteredImage in
+            image.image = filteredImage
+        }
+        
     }
-
+    
 }

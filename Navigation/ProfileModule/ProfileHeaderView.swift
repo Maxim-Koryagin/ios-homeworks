@@ -5,6 +5,7 @@
 //  Created by kosmokos I on 19.08.2022.
 //
 import UIKit
+import SnapKit
 
 final class ProfileHeaderView: UIView {
     
@@ -15,7 +16,6 @@ final class ProfileHeaderView: UIView {
         label.text = "Profile"
         label.font = UIFont(name: "system", size: 20)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -27,7 +27,6 @@ final class ProfileHeaderView: UIView {
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -36,7 +35,6 @@ final class ProfileHeaderView: UIView {
         profileName.text = "Jdun"
         profileName.font = UIFont(name: "Bold", size: 18)
         profileName.textColor = UIColor.black
-        profileName.translatesAutoresizingMaskIntoConstraints = false
         return profileName
     }()
     
@@ -45,7 +43,6 @@ final class ProfileHeaderView: UIView {
         statuslabel.text = "Waiting for something..."
         statuslabel.font = UIFont(name: "Bold", size: 14)
         statuslabel.textColor = UIColor.black
-        statuslabel.translatesAutoresizingMaskIntoConstraints = false
         return statuslabel
     }()
     
@@ -58,7 +55,6 @@ final class ProfileHeaderView: UIView {
         showStatusBotton.layer.shadowOffset = CGSize(width: 4, height: 4)
         showStatusBotton.layer.shadowRadius = 4
         showStatusBotton.layer.shadowOpacity = 0.7
-        showStatusBotton.translatesAutoresizingMaskIntoConstraints = false
         return showStatusBotton
     }()
     
@@ -86,29 +82,35 @@ final class ProfileHeaderView: UIView {
     
     func setupConstraints() {
         
-        NSLayoutConstraint.activate([
-            
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 3),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            profileImage.heightAnchor.constraint(equalToConstant: 130),
-            profileImage.widthAnchor.constraint(equalToConstant: 130),
-            profileImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            profileImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            
-            profileName.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            profileName.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 13),
-            
-            statusLabel.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 45),
-            statusLabel.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 13),
-            
-            showStatusBotton.heightAnchor.constraint(equalToConstant: 50),
-            showStatusBotton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 34),
-            showStatusBotton.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 16),
-            showStatusBotton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            showStatusBotton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        ])
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(3)
+            make.centerX.equalToSuperview()
+        }
+
+        profileImage.snp.makeConstraints { make in
+            make.height.equalTo(130)
+            make.width.equalTo(130)
+            make.top.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(16)
+        }
         
+        profileName.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(27)
+            make.leading.equalTo(profileImage.snp.trailing).inset(-13)
+        }
+        
+        statusLabel.snp.makeConstraints { make in
+            make.top.equalTo(profileName.snp.bottom).inset(-45)
+            make.leading.equalTo(profileImage.snp.trailing).inset(-13)
+        }
+        
+        showStatusBotton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.top.equalTo(statusLabel.snp.bottom).inset(-34)
+            make.top.equalTo(profileImage.snp.bottom).inset(-16)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+    
     }
     
     func addTargets(){
@@ -116,7 +118,7 @@ final class ProfileHeaderView: UIView {
     }
     
     @objc func buttonPressed() {
-        print(statusLabel.text ?? "No text")
+        print(statusLabel.text ?? "")
     }
     
 }

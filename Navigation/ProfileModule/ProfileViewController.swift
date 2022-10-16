@@ -97,20 +97,15 @@ final class ProfileViewController: UIViewController {
         #if DEBUG
         view.backgroundColor = .white
         #else
-        view.backgroundColor = .systemCyan
+        view.backgroundColor = #colorLiteral(red: 0.1922347248, green: 0.6801101565, blue: 0.9027846456, alpha: 1)
         #endif
         
-        setupNavBar()
         setupViews()
         setupConstraints()
         addPosts()
         addTargets()
         tapGestureRecognizer()
         
-    }
-    
-    private func setupNavBar(){
-        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupViews(){
