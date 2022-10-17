@@ -24,9 +24,12 @@ final class TabBarController: UITabBarController {
     
     private func setupUI() {
         
-        firstTabNavidationController = UINavigationController.init(rootViewController: FeedViewController())
-        secondTabNavigationController = UINavigationController.init(rootViewController: LoginViewController())
+        let loginViewController = LoginViewController()
+        loginViewController.loginDelegate = MyLoginFactory().makeLoginInspector()
         
+        firstTabNavidationController = UINavigationController.init(rootViewController: FeedViewController())
+        secondTabNavigationController = UINavigationController.init(rootViewController: loginViewController)
+
         viewControllers = [firstTabNavidationController, secondTabNavigationController]
         
         let item1 = UITabBarItem(title: "Feed", image: UIImage(systemName: "square.grid.2x2"), tag: 0)

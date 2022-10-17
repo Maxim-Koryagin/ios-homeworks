@@ -6,11 +6,11 @@
 
 import UIKit
 
-var loginDelegate: LoginViewControllerDelegate?
-
 final class LoginViewController: UIViewController {
 
     // MARK: Properties
+    
+    var loginDelegate: LoginViewControllerDelegate?
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
