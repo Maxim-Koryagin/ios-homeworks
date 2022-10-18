@@ -30,10 +30,10 @@
 		6AAC70F328C75A0700453537 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC70F228C75A0700453537 /* PostTableViewCell.swift */; };
 		6AB86A3828C0E5BB005DFCB8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB86A3728C0E5BB005DFCB8 /* LoginViewController.swift */; };
 		6AC5AD2128F581FA009C12A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5AD2028F581FA009C12A8 /* User.swift */; };
+		6AC5AD2928F7313B009C12A8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC5AD2828F7313B009C12A8 /* SnapKit */; };
 		6AC5AD2B28FAC96C009C12A8 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5AD2A28FAC96C009C12A8 /* Checker.swift */; };
 		6AC5AD2D28FACDA4009C12A8 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5AD2C28FACDA4009C12A8 /* LoginViewControllerDelegate.swift */; };
 		6AC5AD2F28FAD4F6009C12A8 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5AD2E28FAD4F6009C12A8 /* LoginInspector.swift */; };
-		6AC5AD2928F7313B009C12A8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC5AD2828F7313B009C12A8 /* SnapKit */; };
 		6AFDD0F428EC7044001781FE /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 6AFDD0F328EC7044001781FE /* StorageService.docc */; };
 		6AFDD0FA28EC7044001781FE /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AFDD0F028EC7044001781FE /* StorageService.framework */; };
 		6AFDD10128EC7044001781FE /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFDD10028EC7044001781FE /* StorageServiceTests.swift */; };
@@ -830,8 +830,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				branch = imagepublisher;
+				kind = branch;
 			};
 		};
 		6AC5AD2728F7313B009C12A8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
