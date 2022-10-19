@@ -5,8 +5,8 @@
 //  Created by kosmokos I on 12.09.2022.
 //
 
-struct Photos {
-    
+import UIKit
+
+struct PhotoModel {
     let image: String
-    
 }
