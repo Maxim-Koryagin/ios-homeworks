@@ -47,10 +47,9 @@ final class ProfileHeaderView: UIView {
     }()
     
     lazy var showStatusButton: CustomButton = {
-        let button = CustomButton(title: "Show Status")
+        let button = CustomButton(title: "Show Status", cornerRadius: 4, shadowOpacity: 0.7)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
         return button
     }()
     

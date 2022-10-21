@@ -77,7 +77,7 @@ final class LoginViewController: UIViewController {
     }()
 
     private lazy var loginbutton: CustomButton = {
-        let button = CustomButton(title: "Log In")
+        let button = CustomButton(title: "Log In", cornerRadius: 10, shadowOpacity: 0)
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

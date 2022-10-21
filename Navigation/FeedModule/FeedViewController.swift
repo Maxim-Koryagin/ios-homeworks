@@ -37,9 +37,8 @@ final class FeedViewController: UIViewController {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "Check guess button")
+        let button = CustomButton(title: "Check guess button", cornerRadius: 4, shadowOpacity: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 4
         return button
     }()
     

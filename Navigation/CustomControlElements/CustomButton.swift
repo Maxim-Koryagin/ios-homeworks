@@ -11,16 +11,15 @@ final class CustomButton: UIButton {
 
     var tap: (() -> Void)?
     
-    init(title: String) {
+    init(title: String, cornerRadius: CGFloat, shadowOpacity: Float) {
         super.init(frame: .zero)
         
-        layer.cornerRadius = 10
+        layer.cornerRadius = cornerRadius
         setTitle(title, for: .normal)
         setTitleColor(.white, for: .normal)
         backgroundColor = UIColor(patternImage: UIImage(named: "blue_pixel")!)
         layer.shadowOffset = CGSize(width: 4, height: 4)
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.7
+        layer.shadowOpacity = shadowOpacity
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
