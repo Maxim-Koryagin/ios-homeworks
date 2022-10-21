@@ -46,16 +46,12 @@ final class ProfileHeaderView: UIView {
         return statuslabel
     }()
     
-    lazy var showStatusBotton: UIButton = {
-        let showStatusBotton = UIButton()
-        showStatusBotton.setTitle("Show Status", for: .normal)
-        showStatusBotton.setTitleColor(.white, for: .normal)
-        showStatusBotton.backgroundColor = .systemBlue
-        showStatusBotton.layer.cornerRadius = 4
-        showStatusBotton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        showStatusBotton.layer.shadowRadius = 4
-        showStatusBotton.layer.shadowOpacity = 0.7
-        return showStatusBotton
+    lazy var showStatusButton: CustomButton = {
+        let button = CustomButton(title: "Show Status")
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
+        return button
     }()
     
     //MARK: Life Cycle
@@ -66,10 +62,10 @@ final class ProfileHeaderView: UIView {
     
     //MARK: Methods
     
-    func setupUI() {
+   private func setupUI() {
         setupViews()
         setupConstraints()
-        addTargets()
+        buttonAction()
     }
     
     private func setupViews(){
@@ -77,7 +73,7 @@ final class ProfileHeaderView: UIView {
         addSubview(profileImage)
         addSubview(profileName)
         addSubview(statusLabel)
-        addSubview(showStatusBotton)
+        addSubview(showStatusButton)
     }
     
     func setupConstraints() {
@@ -104,7 +100,7 @@ final class ProfileHeaderView: UIView {
             make.leading.equalTo(profileImage.snp.trailing).inset(-13)
         }
         
-        showStatusBotton.snp.makeConstraints { make in
+        showStatusButton.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.top.equalTo(statusLabel.snp.bottom).inset(-34)
             make.top.equalTo(profileImage.snp.bottom).inset(-16)
@@ -113,11 +109,13 @@ final class ProfileHeaderView: UIView {
     
     }
     
-    func addTargets(){
-        showStatusBotton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    private func buttonAction() {
+        showStatusButton.tap = {
+            self.buttonPressed()
+        }
     }
     
-    @objc func buttonPressed() {
+    @objc private func buttonPressed() {
         print(statusLabel.text ?? "")
     }
     
