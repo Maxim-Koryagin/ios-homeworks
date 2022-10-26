@@ -76,11 +76,8 @@ final class LoginViewController: UIViewController {
         return textField
     }()
 
-    private lazy var logInbutton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log In", for: .normal)
-        button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        button.layer.cornerRadius = 10
+    private lazy var loginbutton: CustomButton = {
+        let button = CustomButton(title: "Log In", cornerRadius: 10, shadowOpacity: 0)
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -103,7 +100,7 @@ final class LoginViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupGestures()
-        addTargets()
+        buttonAction()
     }
 
     private func setupNavBar(){
@@ -115,7 +112,7 @@ final class LoginViewController: UIViewController {
         scrollView.addSubview(contentView)
         contentView.addSubview(imageView)
         contentView.addSubview(stackView)
-        contentView.addSubview(logInbutton)
+        contentView.addSubview(loginbutton)
         stackView.addArrangedSubview(loginTextField)
         stackView.addArrangedSubview(passwordTextField)
     }
@@ -144,15 +141,11 @@ final class LoginViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            logInbutton.heightAnchor.constraint(equalToConstant: 50),
-            logInbutton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5),
-            logInbutton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            logInbutton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            loginbutton.heightAnchor.constraint(equalToConstant: 50),
+            loginbutton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5),
+            loginbutton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            loginbutton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
-    }
-
-    private func addTargets(){
-        logInbutton.addTarget(self, action: #selector(showProfileView), for: .touchUpInside)
     }
 
     private func setupGestures() {
@@ -160,7 +153,13 @@ final class LoginViewController: UIViewController {
         self.view.addGestureRecognizer(tapGesture)
     }
 
-    @objc private func showProfileView() {
+    private func buttonAction() {
+        loginbutton.tap = {
+            self.showProfileView()
+        }
+    }
+    
+    private func showProfileView() {
 
         #if DEBUG
         let user = TestUserService()
@@ -211,7 +210,7 @@ final class LoginViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
 
-            let loginButtonBottomPointY = logInbutton.frame.origin.y + logInbutton.frame.height
+            let loginButtonBottomPointY = loginbutton.frame.origin.y + loginbutton.frame.height
 
             let keyboardOriginY = view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottomPointY ? loginButtonBottomPointY - keyboardOriginY + 16 : 0

@@ -6,6 +6,12 @@
 
 struct FeedModel {
     
-var title: String
+    var title: String
+    
+    private let secretWord = "1"
+    
+    func check(word: String) -> Bool {
+        return word == secretWord ? true : false
+    }
     
 }
