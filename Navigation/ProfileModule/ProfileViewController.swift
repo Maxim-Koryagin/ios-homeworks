@@ -10,6 +10,8 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
+    var didSendEventClosure: ((ProfileViewController.Event) -> Void)?
+    
     private lazy var profileHeader: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
         
@@ -247,4 +249,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-
+extension ProfileViewController {
+    enum Event {
+        case profile
+    }
+}

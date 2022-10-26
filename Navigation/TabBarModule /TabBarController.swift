@@ -13,6 +13,15 @@ final class TabBarController: UITabBarController {
     var firstTabNavidationController: UINavigationController!
     var secondTabNavigationController: UINavigationController!
     
+    let user: CurrentUserService = {
+        let user = CurrentUserService()
+        user.user.login = ""
+        user.user.fullName = "Mark User"
+        user.user.avatar = UIImage(named: "jdun")
+        user.user.status = "Waiting for something..."
+        return user
+    }()
+    
     // MARK: Life cycle
     
     override func viewDidLoad() {
@@ -25,10 +34,11 @@ final class TabBarController: UITabBarController {
     private func setupUI() {
         
         let loginViewController = LoginViewController()
+        let profileViewController = ProfileViewController(userService: user, name: loginViewController.loginTextField.text!)
         loginViewController.loginDelegate = MyLoginFactory().makeLoginInspector()
         
         firstTabNavidationController = UINavigationController.init(rootViewController: FeedViewController())
-        secondTabNavigationController = UINavigationController.init(rootViewController: loginViewController)
+        secondTabNavigationController = UINavigationController.init(rootViewController: profileViewController)
 
         viewControllers = [firstTabNavidationController, secondTabNavigationController]
         

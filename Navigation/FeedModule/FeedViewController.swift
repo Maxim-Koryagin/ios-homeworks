@@ -12,6 +12,8 @@ final class FeedViewController: UIViewController {
     
     var dataSource = FeedModel(title: "Feed")
     
+    var didSendEventClosure: ((FeedViewController.Event) -> Void)?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -71,6 +73,7 @@ final class FeedViewController: UIViewController {
     
     private func addTargets() {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
+        
         checkGuessButton.tap = {
             self.checkPassword()
         }
@@ -132,3 +135,8 @@ final class FeedViewController: UIViewController {
     
 }
 
+extension FeedViewController {
+    enum Event {
+        case feed
+    }
+}

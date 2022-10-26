@@ -22,15 +22,6 @@ class TabCoordinator: Coordinator {
     
     var type: CoordinatorType { .tab }
     
-    let user: CurrentUserService = {
-        let user = CurrentUserService()
-        user.user.login = ""
-        user.user.fullName = "Mark User"
-        user.user.avatar = UIImage(named: "jdun")
-        user.user.status = "Waiting for something..."
-        return user
-    }()
-    
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
