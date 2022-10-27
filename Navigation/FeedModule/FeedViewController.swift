@@ -10,12 +10,11 @@ final class FeedViewController: UIViewController {
     
     // MARK: Properties
     
-    var dataSource = FeedModel(title: "Feed")
-    
-    var didSendEventClosure: ((FeedViewController.Event) -> Void)?
-    
+    var viewModel = FeedViewModel()
+        
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.text = "Feed"
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +45,6 @@ final class FeedViewController: UIViewController {
     
     private lazy var trueFalseLabel: UILabel = {
         let label = UILabel()
-        label.text = "Is password right?"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -67,9 +65,10 @@ final class FeedViewController: UIViewController {
         setupViews()
         setupConstraints()
         addTargets()
-        titleLabel.text = dataSource.title
         setupGestures()
+        makeViewModel()
     }
+
     
     private func addTargets() {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
@@ -109,8 +108,16 @@ final class FeedViewController: UIViewController {
         
     }
     
+    func makeViewModel() {
+        viewModel.statusText.make({ ( statusText) in
+            DispatchQueue.main.async {
+                self.trueFalseLabel.text = statusText
+            }
+        })
+    }
+    
     private func checkPassword() {
-        if dataSource.check(word: textField.text ?? "") == true {
+        if viewModel.checkPassword(password: textField.text ?? "") == true {
             print("Right password")
             trueFalseLabel.textColor = .green
         } else {
@@ -128,15 +135,9 @@ final class FeedViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    @objc func showDetailController() {
+    @objc private func showDetailController() {
         let detailController = PostViewController()
         navigationController?.pushViewController(detailController, animated: true)
     }
     
-}
-
-extension FeedViewController {
-    enum Event {
-        case feed
-    }
 }
