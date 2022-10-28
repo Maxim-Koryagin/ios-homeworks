@@ -9,7 +9,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
     
     // MARK: - Properties
-    
+        
     private lazy var profileHeader: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
         
@@ -246,5 +246,3 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
-
-

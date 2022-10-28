@@ -12,6 +12,8 @@ final class LoginViewController: UIViewController {
     
     var loginDelegate: LoginViewControllerDelegate?
     
+    var didSentEventClosure: ((LoginViewController.Event) -> Void)?
+    
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
@@ -45,7 +47,7 @@ final class LoginViewController: UIViewController {
         return stackView
     }()
 
-    private lazy var loginTextField: UITextField = {
+    lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.borderStyle = .roundedRect
@@ -61,7 +63,7 @@ final class LoginViewController: UIViewController {
         return textField
     }()
 
-    private lazy var passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.borderStyle = .roundedRect
@@ -90,7 +92,11 @@ final class LoginViewController: UIViewController {
 
         setupUI()
     }
-
+    
+    deinit {
+        print("LoginViewController deinit")
+    }
+    
     // MARK: Methods
 
     private func setupUI(){
@@ -154,43 +160,9 @@ final class LoginViewController: UIViewController {
     }
 
     private func buttonAction() {
-        loginbutton.tap = {
-            self.showProfileView()
+        loginbutton.tap = { [self] in
+            didSentEventClosure?(.login)
         }
-    }
-    
-    private func showProfileView() {
-
-        #if DEBUG
-        let user = TestUserService()
-        #else
-        let user: CurrentUserService = {
-            let user = CurrentUserService()
-            user.user.login = ""
-            user.user.fullName = "Mark User"
-            user.user.avatar = UIImage(named: "jdun")
-            user.user.status = "Waiting for something..."
-            return user
-        }()
-        #endif
-
-        let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
-        navigationController?.pushViewController(profileViewController, animated: true)
-
-//        if loginDelegate?.check(login: loginTextField.text!, password: passwordTextField.text!) == true {
-//            navigationController?.pushViewController(profileViewController, animated: true)
-//        } else {
-//            print("incorrect login or password")
-//
-//            let alertController = UIAlertController(title: "incorrect login or password", message: "", preferredStyle: .alert)
-//
-//            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-//                self.dismiss(animated: true)
-//            }))
-//
-//            self.present(alertController, animated: true, completion: nil)
-//        }
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -228,4 +200,10 @@ final class LoginViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 
+}
+// Какой тип потока
+extension LoginViewController {
+    enum Event {
+        case login
+    }
 }

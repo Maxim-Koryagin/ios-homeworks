@@ -5,8 +5,6 @@
 //  Created by kosmokos I on 15.08.2022.
 //
 
-import UIKit
-
 public struct PostModel {
     
     public var title: String
