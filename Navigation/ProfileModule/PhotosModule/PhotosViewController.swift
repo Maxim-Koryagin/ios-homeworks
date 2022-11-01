@@ -16,8 +16,8 @@ final class PhotosViewController: UIViewController {
         static let numberOfItemsInLine: CGFloat = 3
     }
 
-    let imagePublisher = ImagePublisherFacade()
-    private var dataSource = Photo.makePhotoArray()
+    let imageProcessor = ImageProcessor()
+    private let dataSource = Photo.makePhotoArray()
     private var imagesArray = [UIImage]()
     private var localImages = [UIImage]()
 
@@ -48,34 +48,39 @@ final class PhotosViewController: UIViewController {
         setupUI()
         navigationController?.navigationBar.isHidden = false
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        setupImages()
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        imagePublisher.removeSubscription(for: self)
-        imagePublisher.rechargeImageLibrary()
-    }
-
-    //MARK: Methods
+    // MARK: Methods
 
     private func setupUI() {
         setupViews()
         setupConstraints()
         setupNavBar()
+        setupImages()
     }
 
     private func setupImages() {
         dataSource.forEach {
             guard let image = UIImage(named: $0.image) else { return }
-            localImages.append(image)
+            imagesArray.append(image)
         }
-        imagePublisher.subscribe(self)
-        imagePublisher.addImagesWithTimer(time: 0.5, repeat: 20, userImages: localImages)
+        
+        let start = DispatchTime.now()
+        
+        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .noir, qos: .default) { images in
+            images.forEach { image in
+                self.localImages.append(UIImage(cgImage: image!))
+            }
+            
+            let end = DispatchTime.now()
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
+            let timeInterval = Double(end.uptimeNanoseconds - start.uptimeNanoseconds)
+            print(timeInterval / 1_000_000_000)
+        }
+        
     }
 
     private func setupViews() {
@@ -83,7 +88,6 @@ final class PhotosViewController: UIViewController {
     }
 
     private func setupConstraints() {
-
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -98,15 +102,10 @@ final class PhotosViewController: UIViewController {
 
 }
 
-extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
-
-    func receive(images: [UIImage]) {
-        imagesArray = images
-        collectionView.reloadData()
-    }
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imagesArray.count
+        return localImages.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -117,7 +116,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
             return cell
         }
         cell.backgroundColor = .systemGray6
-        let image = imagesArray[indexPath.row]
+        let image = localImages[indexPath.row]
         cell.imageView.image = image
         return cell
     }
