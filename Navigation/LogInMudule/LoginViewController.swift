@@ -11,8 +11,10 @@ final class LoginViewController: UIViewController {
     // MARK: Properties
     
     var loginDelegate: LoginViewControllerDelegate?
+        
+    let bruteForce = BruteForce()
     
-    var didSentEventClosure: ((LoginViewController.Event) -> Void)?
+    let child = SpinnerViewController()
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
@@ -84,17 +86,32 @@ final class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
+    private lazy var choosePasswordButton: CustomButton = {
+        let button = CustomButton(title: "Choose a password", cornerRadius: 5, shadowOpacity: 0)
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
     }
     
-    deinit {
-        print("LoginViewController deinit")
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.didShowKeyboard(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.didHideKeyboard(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
     
     // MARK: Methods
@@ -106,7 +123,8 @@ final class LoginViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupGestures()
-        buttonAction()
+        loginButtonAction()
+        choosePasswordButtonAction()
     }
 
     private func setupNavBar(){
@@ -119,6 +137,7 @@ final class LoginViewController: UIViewController {
         contentView.addSubview(imageView)
         contentView.addSubview(stackView)
         contentView.addSubview(loginbutton)
+        contentView.addSubview(choosePasswordButton)
         stackView.addArrangedSubview(loginTextField)
         stackView.addArrangedSubview(passwordTextField)
     }
@@ -151,6 +170,10 @@ final class LoginViewController: UIViewController {
             loginbutton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5),
             loginbutton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginbutton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            choosePasswordButton.topAnchor.constraint(equalTo: loginbutton.bottomAnchor, constant: 40),
+            choosePasswordButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
+            choosePasswordButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25)
         ])
     }
 
@@ -158,23 +181,81 @@ final class LoginViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.forcedHidingKeyboard))
         self.view.addGestureRecognizer(tapGesture)
     }
-
-    private func buttonAction() {
-        loginbutton.tap = { [self] in
-            didSentEventClosure?(.login)
+    
+    private func loginButtonAction() {
+        loginbutton.tap = {
+            self.showProfileView()
         }
     }
+    
+    private func choosePasswordButtonAction() {
+        choosePasswordButton.tap = {
+            let queue = DispatchQueue(label: "ChoosePassword", qos: .userInitiated)
+            queue.async {
+                self.choosePassword()
+            }
+            
+            DispatchQueue.main.async { [self] in
+                stackView.addSubview(child.view)
+                addChild(child)
+                
+                child.view.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    child.view.topAnchor.constraint(equalTo: stackView.lastBaselineAnchor, constant: -5),
+                    child.view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20)
+                ])
+                child.didMove(toParent: self)
+            }
+        }
+    }
+    
+    private func showAnimation() {
+        let child = SpinnerViewController()
+        
+        stackView.addSubview(child.view)
+        addChild(child)
+        
+        child.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            child.view.topAnchor.constraint(equalTo: stackView.lastBaselineAnchor, constant: -5),
+            child.view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20)
+        ])
+        child.didMove(toParent: self)
+    }
+    
+    private func choosePassword() {
+        let randomString = String.random(length: 4)
+        print("Generated string - \(randomString)")
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.didShowKeyboard(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.didHideKeyboard(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        bruteForce.bruteForce(passwordToUnlock: randomString)
+        
+        DispatchQueue.main.async {
+            self.passwordTextField.isSecureTextEntry = false
+            self.passwordTextField.text = randomString
+            
+            self.child.willMove(toParent: nil)
+            self.child.view.removeFromSuperview()
+            self.child.removeFromParent()
+        }
+    }
+    
+    private func showProfileView() {
+
+        #if DEBUG
+        let user = TestUserService()
+        #else
+        let user: CurrentUserService = {
+            let user = CurrentUserService()
+            user.user.login = ""
+            user.user.fullName = "Mark User"
+            user.user.avatar = UIImage(named: "jdun")
+            user.user.status = "Waiting for something..."
+            return user
+        }()
+        #endif
+
+        let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
 
     @objc private func didShowKeyboard(_ notification: Notification) {
@@ -182,7 +263,7 @@ final class LoginViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
 
-            let loginButtonBottomPointY = loginbutton.frame.origin.y + loginbutton.frame.height
+            let loginButtonBottomPointY = choosePasswordButton.frame.origin.y + choosePasswordButton.frame.height
 
             let keyboardOriginY = view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottomPointY ? loginButtonBottomPointY - keyboardOriginY + 16 : 0
@@ -201,9 +282,18 @@ final class LoginViewController: UIViewController {
     }
 
 }
-// Какой тип потока
-extension LoginViewController {
-    enum Event {
-        case login
+
+// MARK: String extension
+
+extension String {
+    static func random(length: Int = 20) -> String {
+        let base = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        var randomString: String = ""
+
+        for _ in 0..<length {
+            let randomValue = arc4random_uniform(UInt32(base.count))
+            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+        }
+        return randomString
     }
 }
