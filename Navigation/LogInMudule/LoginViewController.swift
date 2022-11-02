@@ -14,7 +14,7 @@ final class LoginViewController: UIViewController {
         
     let bruteForce = BruteForce()
     
-    let child = SpinnerViewController()
+    let spinner = SpinnerViewController()
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
@@ -190,53 +190,43 @@ final class LoginViewController: UIViewController {
     
     private func choosePasswordButtonAction() {
         choosePasswordButton.tap = {
-            let queue = DispatchQueue(label: "ChoosePassword", qos: .userInitiated)
-            queue.async {
-                self.choosePassword()
-            }
-            
-            DispatchQueue.main.async { [self] in
-                stackView.addSubview(child.view)
-                addChild(child)
-                
-                child.view.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    child.view.topAnchor.constraint(equalTo: stackView.lastBaselineAnchor, constant: -5),
-                    child.view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20)
-                ])
-                child.didMove(toParent: self)
-            }
+            self.choosePassword()
         }
-    }
-    
-    private func showAnimation() {
-        let child = SpinnerViewController()
-        
-        stackView.addSubview(child.view)
-        addChild(child)
-        
-        child.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            child.view.topAnchor.constraint(equalTo: stackView.lastBaselineAnchor, constant: -5),
-            child.view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20)
-        ])
-        child.didMove(toParent: self)
     }
     
     private func choosePassword() {
         let randomString = String.random(length: 4)
         print("Generated string - \(randomString)")
 
-        bruteForce.bruteForce(passwordToUnlock: randomString)
+        let queue = DispatchQueue(label: "choosePasswordQueue", qos: .userInitiated)
+        let workItem = DispatchWorkItem { [self] in
+            bruteForce.bruteForce(passwordToUnlock: randomString)
+        }
         
-        DispatchQueue.main.async {
+        setupSpinner()
+        
+        queue.async(execute: workItem)
+        
+        workItem.notify(queue: .main) {
             self.passwordTextField.isSecureTextEntry = false
             self.passwordTextField.text = randomString
             
-            self.child.willMove(toParent: nil)
-            self.child.view.removeFromSuperview()
-            self.child.removeFromParent()
+            self.spinner.willMove(toParent: nil)
+            self.spinner.view.removeFromSuperview()
+            self.spinner.removeFromParent()
         }
+    }
+    
+    private func setupSpinner() {
+        stackView.addSubview(spinner.view)
+        addChild(spinner)
+        
+        spinner.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            spinner.view.topAnchor.constraint(equalTo: stackView.lastBaselineAnchor, constant: -5),
+            spinner.view.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 40)
+        ])
+        spinner.didMove(toParent: self)
     }
     
     private func showProfileView() {
