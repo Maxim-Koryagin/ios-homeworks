@@ -55,9 +55,19 @@ final class PhotosViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupNavBar()
-        setupImages()
+        setupImagesWithTimer()
     }
 
+    private func setupImagesWithTimer() {
+        Timer.scheduledTimer(
+            timeInterval: 3.0,
+            target: self,
+            selector: #selector(setupImages),
+            userInfo: nil,
+            repeats: false)
+    }
+    
+    @objc
     private func setupImages() {
         dataSource.forEach {
             guard let image = UIImage(named: $0.image) else { return }

@@ -217,9 +217,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             
-            let dataSource = dataSource[indexPath.row - 1]
-            cell.setup(dataSource)
-            
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] Timer in
+                let dataSource = dataSource[indexPath.row - 1]
+                cell.setup(dataSource)
+            }
+
             return cell
         }
     }
