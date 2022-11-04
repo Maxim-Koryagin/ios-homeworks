@@ -59,12 +59,12 @@ final class PhotosViewController: UIViewController {
     }
 
     private func setupImagesWithTimer() {
-        Timer.scheduledTimer(
-            timeInterval: 3.0,
+       Timer.scheduledTimer(
+            timeInterval: 5.0,
             target: self,
             selector: #selector(setupImages),
             userInfo: nil,
-            repeats: false)
+            repeats: true)
     }
     
     @objc
