@@ -66,7 +66,7 @@ final class PhotosViewController: UIViewController {
         
         let start = DispatchTime.now()
         
-        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .noir, qos: .default) { images in
+        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .noir, qos: .userInitiated) { images in
             images.forEach { image in
                 self.localImages.append(UIImage(cgImage: image!))
             }

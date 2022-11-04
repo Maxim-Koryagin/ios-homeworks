@@ -45,5 +45,5 @@ protocol CoordinatorFinishDelegate: AnyObject {
 // MARK: Типы координатора
 /// Перечисление для того чтобы знать какой тип потока мы можем использовать в приложении.
 enum CoordinatorType {
-    case app, login, tab
+    case app, tab
 }

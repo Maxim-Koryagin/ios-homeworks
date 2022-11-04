@@ -9,8 +9,7 @@ import UIKit
 
 /// Определяем, какой тип потоков может быть запущен с этого координатора.
 protocol AppCoordinatorProtocol: Coordinator {
-    func showLoginFlow()
-    func showTabBarFlow()
+    func showMainFlow()
 }
 
 /// Координатор приложения. Едиственный координатор, который будет существовать в теченни жизненного цикла приложения.
@@ -30,37 +29,15 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-        showLoginFlow()
+        showMainFlow()
     }
     
-    func showLoginFlow() {
-        let loginCoordinator = LoginCoordinator.init(navigationController)
-        loginCoordinator.finishDelegate = self
-        loginCoordinator.start()
-        childCoordinators.append(loginCoordinator)
-    }
-    
-    func showTabBarFlow() {
+    func showMainFlow() {
         let tabCoordinator = TabCoordinator.init(navigationController)
-        tabCoordinator.finishDelegate = self
         tabCoordinator.start()
         childCoordinators.append(tabCoordinator)
     }
     
 }
 
-extension AppCoordinator: CoordinatorFinishDelegate {
-    func coordinatorDidFinish(childCoordinator: Coordinator) {
-        
-        childCoordinators = childCoordinators.filter({ $0.type != childCoordinator.type })
 
-        switch childCoordinator.type {
-        case .login:
-            navigationController.viewControllers.removeAll()
-            
-            showTabBarFlow()
-        default:
-            break
-        }
-    }
-}
