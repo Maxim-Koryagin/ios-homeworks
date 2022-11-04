@@ -58,37 +58,38 @@ final class PhotosViewController: UIViewController {
         setupImagesWithTimer()
     }
 
-    private func setupImagesWithTimer() {
-       Timer.scheduledTimer(
-            timeInterval: 5.0,
-            target: self,
-            selector: #selector(setupImages),
-            userInfo: nil,
-            repeats: true)
-    }
-    
-    @objc
-    private func setupImages() {
-        dataSource.forEach {
-            guard let image = UIImage(named: $0.image) else { return }
-            imagesArray.append(image)
-        }
+    func setupImagesWithTimer() {
+        var runCount = 0
         
-        let start = DispatchTime.now()
-        
-        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .noir, qos: .userInitiated) { images in
-            images.forEach { image in
-                self.localImages.append(UIImage(cgImage: image!))
+        let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+            self.dataSource.forEach {
+                guard let image = UIImage(named: $0.image) else { return }
+                self.imagesArray.append(image)
             }
             
-            let end = DispatchTime.now()
+            runCount += 1
             
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            let start = DispatchTime.now()
+            
+            self.imageProcessor.processImagesOnThread(sourceImages: self.imagesArray, filter: .noir, qos: .userInitiated) { images in
+                images.forEach { image in
+                    self.localImages.append(UIImage(cgImage: image!))
+                }
+                
+                let end = DispatchTime.now()
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                
+                let timeInterval = Double(end.uptimeNanoseconds - start.uptimeNanoseconds)
+                print(timeInterval / 1_000_000_000)
             }
             
-            let timeInterval = Double(end.uptimeNanoseconds - start.uptimeNanoseconds)
-            print(timeInterval / 1_000_000_000)
+            if runCount == 3 {
+                timer.invalidate()
+            }
+            
         }
         
     }
