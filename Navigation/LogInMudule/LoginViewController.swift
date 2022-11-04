@@ -11,11 +11,7 @@ final class LoginViewController: UIViewController {
     // MARK: Properties
     
     var loginDelegate: LoginViewControllerDelegate?
-        
-    let bruteForce = BruteForce()
-    
-    let spinner = SpinnerViewController()
-    
+                
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
@@ -87,13 +83,6 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
-    private lazy var choosePasswordButton: CustomButton = {
-        let button = CustomButton(title: "Choose a password", cornerRadius: 5, shadowOpacity: 0)
-        button.clipsToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     // MARK: Life Cycle
 
     override func viewDidLoad() {
@@ -124,7 +113,6 @@ final class LoginViewController: UIViewController {
         setupConstraints()
         setupGestures()
         loginButtonAction()
-        choosePasswordButtonAction()
     }
 
     private func setupNavBar(){
@@ -137,7 +125,6 @@ final class LoginViewController: UIViewController {
         contentView.addSubview(imageView)
         contentView.addSubview(stackView)
         contentView.addSubview(loginbutton)
-        contentView.addSubview(choosePasswordButton)
         stackView.addArrangedSubview(loginTextField)
         stackView.addArrangedSubview(passwordTextField)
     }
@@ -170,10 +157,6 @@ final class LoginViewController: UIViewController {
             loginbutton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 5),
             loginbutton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginbutton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            choosePasswordButton.topAnchor.constraint(equalTo: loginbutton.bottomAnchor, constant: 40),
-            choosePasswordButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            choosePasswordButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25)
         ])
     }
 
@@ -186,47 +169,6 @@ final class LoginViewController: UIViewController {
         loginbutton.tap = {
             self.showProfileView()
         }
-    }
-    
-    private func choosePasswordButtonAction() {
-        choosePasswordButton.tap = {
-            self.choosePassword()
-        }
-    }
-    
-    private func choosePassword() {
-        let randomString = String.random(length: 4)
-        print("Generated string - \(randomString)")
-
-        let queue = DispatchQueue(label: "choosePasswordQueue", qos: .userInitiated)
-        let workItem = DispatchWorkItem { [self] in
-            bruteForce.bruteForce(passwordToUnlock: randomString)
-        }
-        
-        setupSpinner()
-        
-        queue.async(execute: workItem)
-        
-        workItem.notify(queue: .main) {
-            self.passwordTextField.isSecureTextEntry = false
-            self.passwordTextField.text = randomString
-            
-            self.spinner.willMove(toParent: nil)
-            self.spinner.view.removeFromSuperview()
-            self.spinner.removeFromParent()
-        }
-    }
-    
-    private func setupSpinner() {
-        stackView.addSubview(spinner.view)
-        addChild(spinner)
-        
-        spinner.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            spinner.view.topAnchor.constraint(equalTo: stackView.lastBaselineAnchor, constant: -5),
-            spinner.view.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 40)
-        ])
-        spinner.didMove(toParent: self)
     }
     
     private func showProfileView() {
@@ -253,7 +195,7 @@ final class LoginViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
 
-            let loginButtonBottomPointY = choosePasswordButton.frame.origin.y + choosePasswordButton.frame.height
+            let loginButtonBottomPointY = loginbutton.frame.origin.y + loginbutton.frame.height
 
             let keyboardOriginY = view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottomPointY ? loginButtonBottomPointY - keyboardOriginY + 16 : 0
@@ -271,19 +213,4 @@ final class LoginViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 
-}
-
-// MARK: String extension
-
-extension String {
-    static func random(length: Int = 20) -> String {
-        let base = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        var randomString: String = ""
-
-        for _ in 0..<length {
-            let randomValue = arc4random_uniform(UInt32(base.count))
-            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
-        }
-        return randomString
-    }
 }
