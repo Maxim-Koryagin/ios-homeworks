@@ -178,16 +178,29 @@ final class LoginViewController: UIViewController {
         #else
         let user: CurrentUserService = {
             let user = CurrentUserService()
-            user.user.login = ""
+            user.user.login = "m"
             user.user.fullName = "Mark User"
             user.user.avatar = UIImage(named: "jdun")
             user.user.status = "Waiting for something..."
             return user
         }()
         #endif
-
+        
         let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
-        navigationController?.pushViewController(profileViewController, animated: true)
+        if loginDelegate?.check(login: loginTextField.text!, password: passwordTextField.text!) == true {
+            navigationController?.pushViewController(profileViewController, animated: true)
+        } else {
+            print("incorrect login or password")
+            
+            let alertController = UIAlertController(title: "incorrect login or password", message: "", preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.dismiss(animated: true)
+            }))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
     }
 
     @objc private func didShowKeyboard(_ notification: Notification) {

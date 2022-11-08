@@ -6,12 +6,28 @@
 
 import UIKit
 
+enum customFeedError: Error {
+    case invalidPassword
+}
+
+extension customFeedError: CustomStringConvertible {
+    public var description: String {
+        
+        switch self {
+        case .invalidPassword:
+            return "the entered password is invalid"
+        }
+    }
+}
+
 final class FeedViewController: UIViewController {
     
     // MARK: Properties
     
     var viewModel = FeedViewModel()
         
+    private let alertController = UIAlertController(title: "Invalid Password", message: "Try again", preferredStyle: .alert)
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Feed"
@@ -74,7 +90,7 @@ final class FeedViewController: UIViewController {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
         
         checkGuessButton.tap = {
-            self.checkPassword()
+            self.check()
         }
     }
 
@@ -84,6 +100,11 @@ final class FeedViewController: UIViewController {
         view.addSubview(textField)
         view.addSubview(checkGuessButton)
         view.addSubview(trueFalseLabel)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.dismiss(animated: true)
+        }))
+        
     }
     
     private func setupConstraints() {
@@ -108,21 +129,35 @@ final class FeedViewController: UIViewController {
         
     }
     
-    func makeViewModel() {
+    private func makeViewModel() {
         viewModel.statusText.make({ ( statusText) in
             DispatchQueue.main.async {
                 self.trueFalseLabel.text = statusText
             }
         })
     }
-    
-    private func checkPassword() {
+
+    private func isPasswordRight() throws {
+        
         if viewModel.checkPassword(password: textField.text ?? "") == true {
-            print("Right password")
             trueFalseLabel.textColor = .green
         } else {
-            print("Wrong password")
             trueFalseLabel.textColor = .red
+            self.present(alertController, animated: true, completion: nil)
+            throw customFeedError.invalidPassword
+        }
+        
+    }
+    
+    private func check() {
+        do {
+            try isPasswordRight()
+        }
+        catch customFeedError.invalidPassword {
+            print(customFeedError.invalidPassword.description)
+        }
+        catch {
+            print(error)
         }
     }
     
