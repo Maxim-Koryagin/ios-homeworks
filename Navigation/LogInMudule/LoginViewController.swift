@@ -6,6 +6,10 @@
 
 import UIKit
 
+enum CustomLoginError: Error {
+    case InvalidLogin
+}
+
 final class LoginViewController: UIViewController {
 
     // MARK: Properties
@@ -167,8 +171,29 @@ final class LoginViewController: UIViewController {
     
     private func loginButtonAction() {
         loginbutton.tap = {
-            self.showProfileView()
+            self.checkLogin(login: self.loginTextField.text!) { result in
+                switch result {
+                case .success(_):
+                    self.showProfileView()
+                    print("correct login")
+                case .failure(CustomLoginError.InvalidLogin):
+                    self.showAlert(message: "Invalid login")
+                }
+            }
         }
+    }
+    
+    private func checkLogin(
+    login: String,
+    completion: @escaping (Result<() -> Void, CustomLoginError>) -> Void
+    ) {
+        
+        if loginDelegate?.check(login: login, password: self.passwordTextField.text!) == true {
+            completion(.success(showProfileView))
+        } else {
+            completion(.failure(CustomLoginError.InvalidLogin))
+        }
+
     }
     
     private func showProfileView() {
@@ -187,20 +212,7 @@ final class LoginViewController: UIViewController {
         #endif
         
         let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
-        if loginDelegate?.check(login: loginTextField.text!, password: passwordTextField.text!) == true {
-            navigationController?.pushViewController(profileViewController, animated: true)
-        } else {
-            print("incorrect login or password")
-            
-            let alertController = UIAlertController(title: "incorrect login or password", message: "", preferredStyle: .alert)
-            
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                self.dismiss(animated: true)
-            }))
-            
-            self.present(alertController, animated: true, completion: nil)
-        }
-        
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
 
     @objc private func didShowKeyboard(_ notification: Notification) {
@@ -226,4 +238,10 @@ final class LoginViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
 }
