@@ -6,6 +6,10 @@
 
 import UIKit
 
+enum CustomLoginError: Error {
+    case InvalidLogin
+}
+
 final class LoginViewController: UIViewController {
 
     // MARK: Properties
@@ -167,8 +171,29 @@ final class LoginViewController: UIViewController {
     
     private func loginButtonAction() {
         loginbutton.tap = {
-            self.showProfileView()
+            self.checkLogin(login: self.loginTextField.text!) { result in
+                switch result {
+                case .success(_):
+                    self.showProfileView()
+                    print("correct login")
+                case .failure(CustomLoginError.InvalidLogin):
+                    self.showAlert(message: "Invalid login")
+                }
+            }
         }
+    }
+    
+    private func checkLogin(
+    login: String,
+    completion: @escaping (Result<() -> Void, CustomLoginError>) -> Void
+    ) {
+        
+        if loginDelegate?.check(login: login, password: self.passwordTextField.text!) == true {
+            completion(.success(showProfileView))
+        } else {
+            completion(.failure(CustomLoginError.InvalidLogin))
+        }
+
     }
     
     private func showProfileView() {
@@ -178,14 +203,14 @@ final class LoginViewController: UIViewController {
         #else
         let user: CurrentUserService = {
             let user = CurrentUserService()
-            user.user.login = ""
+            user.user.login = "m"
             user.user.fullName = "Mark User"
             user.user.avatar = UIImage(named: "jdun")
             user.user.status = "Waiting for something..."
             return user
         }()
         #endif
-
+        
         let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
         navigationController?.pushViewController(profileViewController, animated: true)
     }
@@ -213,4 +238,10 @@ final class LoginViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
 }

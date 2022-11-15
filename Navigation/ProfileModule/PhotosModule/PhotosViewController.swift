@@ -61,7 +61,7 @@ final class PhotosViewController: UIViewController {
     func setupImagesWithTimer() {
         var runCount = 0
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
             self.dataSource.forEach {
                 guard let image = UIImage(named: $0.image) else { return }
                 self.imagesArray.append(image)
