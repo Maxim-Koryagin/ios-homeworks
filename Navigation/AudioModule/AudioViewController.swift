@@ -151,7 +151,6 @@ final class AudioViewController: UIViewController {
     private func didTapPlayPauseButton() {
         if player.isPlaying {
             player.stop()
-            player.currentTime = 0
             playAndPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
         } else {
             player.play()
@@ -173,8 +172,8 @@ final class AudioViewController: UIViewController {
     @objc
     private func didTapForwardButton() {
         currentTrack = (currentTrack + 1)
-        if currentTrack > TrackModel.tracks.count - 1 {
-            currentTrack = TrackModel.tracks.count - 1
+        if currentTrack < TrackModel.tracks.count - 1 {
+            currentTrack += 1
         }
         setupPlayer()
         player.play()
