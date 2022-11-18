@@ -13,9 +13,9 @@ final class AudioViewController: UIViewController {
     
     private var player = AVAudioPlayer()
     private var currentTrack = 0
-        
+    
     private lazy var audioImage: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.image = UIImage(systemName: "music.note")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -83,7 +83,16 @@ final class AudioViewController: UIViewController {
         setupConstraints()
         addTargets()
         setupPlayer()
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "1", ofType: "mp3")!))
+            player.prepareToPlay()
+        }
+        catch {
+            print(error)
+        }
     }
+
 
     private func setupViews() {
         view.addSubview(audioImage)
@@ -171,7 +180,6 @@ final class AudioViewController: UIViewController {
     
     @objc
     private func didTapForwardButton() {
-        currentTrack = (currentTrack + 1)
         if currentTrack < TrackModel.tracks.count - 1 {
             currentTrack += 1
         }
