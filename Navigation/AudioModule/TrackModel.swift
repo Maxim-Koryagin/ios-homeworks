@@ -5,8 +5,6 @@
 //  Created by kosmokos I on 15.11.2022.
 //
 
-
-
 struct Track {
     let name: String
     let artist: String

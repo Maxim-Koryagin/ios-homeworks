@@ -22,7 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         rootCoordinator = AppCoordinator.init(navigationController)
         rootCoordinator?.start()
+        
+        let randomItem = AppConfiguration.allCases.randomElement()!
+        NetworkManager.request(for: randomItem)
     }
 
+    
+    
 }
 
