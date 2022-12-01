@@ -107,7 +107,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: Methods
 
-    private func setupUI(){
+    private func setupUI() {
         view.backgroundColor = .white
 
         setupNavBar()
@@ -127,7 +127,7 @@ final class LoginViewController: UIViewController {
         
     }
 
-    private func setupNavBar(){
+    private func setupNavBar() {
         navigationController?.navigationBar.isHidden = true
     }
 
@@ -141,7 +141,7 @@ final class LoginViewController: UIViewController {
         stackView.addArrangedSubview(passwordTextField)
     }
 
-    private func setupConstraints(){
+    private func setupConstraints() {
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
