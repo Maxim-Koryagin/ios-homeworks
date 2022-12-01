@@ -28,7 +28,7 @@ class CheckerService: CheckerServiceProtocol {
         }
 
     }
-    
+
     func signUp(email: String, password : String, complition: @escaping (String) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
