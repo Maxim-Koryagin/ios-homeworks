@@ -35,9 +35,9 @@ final class TestUserService: UserService {
     let user: User = {
         let user = User()
         user.login = "1234"
-        user.fullName = "Test fullname"
-        user.status = "Test status"
-        user.avatar = UIImage(named: "emptyAvatar")
+        user.fullName = "Maxim Koryagin"
+        user.status = "Waiting For Something"
+        user.avatar = UIImage(named: "jdun")
         return user
     }()
     

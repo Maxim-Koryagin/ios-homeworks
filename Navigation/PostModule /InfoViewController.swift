@@ -76,7 +76,7 @@ final class InfoViewController: UIViewController {
         buttonAlert.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
     }
     
-    @objc func showAlert() {
+    @objc private func showAlert() {
         self.present(alertController, animated: true, completion: nil)
     }
     

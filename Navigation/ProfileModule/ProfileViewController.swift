@@ -93,19 +93,13 @@ final class ProfileViewController: UIViewController {
     //MARK: - Methods
     
     private func setupUI(){
-
-        #if DEBUG
-        view.backgroundColor = .white
-        #else
         view.backgroundColor = #colorLiteral(red: 0.1922347248, green: 0.6801101565, blue: 0.9027846456, alpha: 1)
-        #endif
-        
+    
         setupViews()
         setupConstraints()
         addPosts()
         addTargets()
         tapGestureRecognizer()
-        
     }
     
     private func setupViews(){
@@ -217,11 +211,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { [self] _ in
-                let dataSource = dataSource[indexPath.row - 1]
-                cell.setup(dataSource)
-            }
-
+            
+            let dataSource = dataSource[indexPath.row - 1]
+            cell.setup(dataSource)
+            
+            
             return cell
         }
     }

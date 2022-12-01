@@ -5,10 +5,7 @@
 //  Created by kosmokos I on 01.09.2022.
 
 import UIKit
-
-enum CustomLoginError: Error {
-    case InvalidLogin
-}
+import FirebaseAuth
 
 final class LoginViewController: UIViewController {
 
@@ -49,13 +46,13 @@ final class LoginViewController: UIViewController {
         return stackView
     }()
 
-    lazy var loginTextField: UITextField = {
+    lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.borderStyle = .roundedRect
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 16)
-        textField.placeholder = "Email or phone"
+        textField.placeholder = "Email"
         textField.autocapitalizationType = .none
         textField.clearButtonMode = .whileEditing
         textField.layer.borderWidth = 0.8
@@ -117,6 +114,16 @@ final class LoginViewController: UIViewController {
         setupConstraints()
         setupGestures()
         loginButtonAction()
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user == nil {
+                self.loginbutton.setTitle("Sign up", for: .normal)
+            
+            } else {
+                self.loginbutton.setTitle("Login", for: .normal)
+            }
+        }
+        
     }
 
     private func setupNavBar(){
@@ -129,7 +136,7 @@ final class LoginViewController: UIViewController {
         contentView.addSubview(imageView)
         contentView.addSubview(stackView)
         contentView.addSubview(loginbutton)
-        stackView.addArrangedSubview(loginTextField)
+        stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
     }
 
@@ -170,49 +177,36 @@ final class LoginViewController: UIViewController {
     }
     
     private func loginButtonAction() {
+        
         loginbutton.tap = {
-            self.checkLogin(login: self.loginTextField.text!) { result in
-                switch result {
-                case .success(_):
-                    self.showProfileView()
-                    print("correct login")
-                case .failure(CustomLoginError.InvalidLogin):
-                    self.showAlert(message: "Invalid login")
+            
+            guard let login = self.emailTextField.text,
+                  let password = self.passwordTextField.text,
+                  (!login.isEmpty && !password.isEmpty)
+            else {
+                self.showErrorAlert(message: "You need write email and password")
+                return
+            }
+            
+            CheckerService().checkCredentials(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
+                if result == "authorization complited" {
+                    self.showProfileVC()
+                } else if result == "You want register a new user with email - \(self.emailTextField.text!)?" {
+                    self.showAlertLogin(message: result) { result in
+                        CheckerService().signUp(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
+                            if result == "registration complited" {
+                                self.showSuccessAlert(message: result)
+                            } else {
+                                self.showErrorAlert(message: result)
+                            }
+                        }
+                    }
+                } else {
+                    self.showErrorAlert(message: result)
                 }
             }
         }
-    }
-    
-    private func checkLogin(
-    login: String,
-    completion: @escaping (Result<() -> Void, CustomLoginError>) -> Void
-    ) {
         
-        if loginDelegate?.check(login: login, password: self.passwordTextField.text!) == true {
-            completion(.success(showProfileView))
-        } else {
-            completion(.failure(CustomLoginError.InvalidLogin))
-        }
-
-    }
-    
-    private func showProfileView() {
-
-        #if DEBUG
-        let user = TestUserService()
-        #else
-        let user: CurrentUserService = {
-            let user = CurrentUserService()
-            user.user.login = "m"
-            user.user.fullName = "Mark User"
-            user.user.avatar = UIImage(named: "jdun")
-            user.user.status = "Waiting for something..."
-            return user
-        }()
-        #endif
-        
-        let profileViewController = ProfileViewController(userService: user, name: loginTextField.text!)
-        navigationController?.pushViewController(profileViewController, animated: true)
     }
 
     @objc private func didShowKeyboard(_ notification: Notification) {
@@ -238,10 +232,34 @@ final class LoginViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 
-    private func showAlert(message: String) {
+    private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
     }
     
+    private func showSuccessAlert(message: String) {
+        let alert = UIAlertController(title: "Seccess", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+    func showAlertLogin(message : String, complition: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Register new user", style: .default) { action in
+            complition(true)
+        })
+        alert.addAction(UIAlertAction(title: "cancel", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension LoginViewController {
+    func showProfileVC() {
+        let user = TestUserService()
+   
+        let profileViewController = ProfileViewController(userService: user, name: emailTextField.text!)
+        navigationController?.pushViewController(profileViewController, animated: true)
+    }
 }
