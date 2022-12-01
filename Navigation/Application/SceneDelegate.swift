@@ -25,8 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         PlanetNetworkManeger.request()
     }
-
-    
     
 }
 

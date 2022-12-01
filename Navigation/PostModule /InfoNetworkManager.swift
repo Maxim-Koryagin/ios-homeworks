@@ -28,7 +28,6 @@ struct PlanetNetworkManeger {
                         if let dict = serializedDictionary as? [String: Any] {
                             if let title = dict["title"] as? String {
                                 titlePlanet = title
-                                print(title)
                             }
                         }
                     } catch let error {
@@ -51,7 +50,6 @@ struct PlanetNetworkManeger {
                         decoder.keyDecodingStrategy = .convertFromSnakeCase
                         let planet = try decoder.decode(Planet.self, from: unwrappedData)
                         orbitalPeriod = planet.orbitalPeriod
-                        print(planet.orbitalPeriod)
 
                     } catch let error {
                         print(error)
