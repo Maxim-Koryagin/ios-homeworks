@@ -4,12 +4,18 @@
 //
 //  Created by kosmokos I on 15.10.2022.
 //
+import Foundation
 
 struct LoginInspector: LoginViewControllerDelegate {
     
-    func check(login: String, password: String) -> Bool {
-        let checker = Checker.shared
-        return checker.check(login: login, password: password)
+    let checkerService = CheckerService()
+    
+    func checkCredentials(email: String, password: String, complition: @escaping (String) -> Void) {
+        checkerService.checkCredentials(email: email, password: password, complition: complition)
+    }
+    
+    func signUp(email: String, password: String, complition: @escaping (String) -> Void) {
+        checkerService.signUp(email: email, password: password, complition: complition)
     }
     
 }

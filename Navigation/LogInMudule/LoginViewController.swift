@@ -72,6 +72,7 @@ final class LoginViewController: UIViewController {
         textField.layer.borderWidth = 0.8
         textField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: textField.frame.height))
         textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.textContentType = .oneTimeCode
         textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -188,12 +189,12 @@ final class LoginViewController: UIViewController {
                 return
             }
             
-            CheckerService().checkCredentials(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
+            self.loginDelegate?.checkCredentials(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
                 if result == "authorization complited" {
                     self.showProfileVC()
-                } else if result == "You want register a new user with email - \(self.emailTextField.text!)?" {
+                } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
                     self.showAlertLogin(message: result) { result in
-                        CheckerService().signUp(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
+                        self.loginDelegate?.signUp(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
                             if result == "registration complited" {
                                 self.showSuccessAlert(message: result)
                             } else {
@@ -208,7 +209,7 @@ final class LoginViewController: UIViewController {
         }
         
     }
-
+    
     @objc private func didShowKeyboard(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue

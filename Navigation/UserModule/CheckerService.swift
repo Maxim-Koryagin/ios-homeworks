@@ -8,11 +8,6 @@
 import Foundation
 import FirebaseAuth
 
-protocol CheckerServiceProtocol {
-    func checkCredentials(email: String, password : String, complition: @escaping (String) -> Void)
-    func signUp(email: String, password : String, complition: @escaping (String) -> Void)
-}
-
 class CheckerService: CheckerServiceProtocol {
     func checkCredentials(email: String, password : String, complition: @escaping (String) -> Void) {
 

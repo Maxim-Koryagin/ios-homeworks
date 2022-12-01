@@ -7,8 +7,7 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate {
-    
-    func check(login: String, password: String) -> Bool
-    
+protocol LoginViewControllerDelegate: CheckerServiceProtocol {
+    func checkCredentials(email: String, password : String, complition: @escaping (String) -> Void)
+    func signUp(email: String, password : String, complition: @escaping (String) -> Void)
 }
