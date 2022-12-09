@@ -108,10 +108,9 @@ final class AudioViewController: UIViewController {
         NSLayoutConstraint.activate([
         
             audioImage.heightAnchor.constraint(equalToConstant: 120),
-            audioImage.widthAnchor.constraint(equalToConstant: 40),
-            audioImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            audioImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 135),
-            audioImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -135),
+            audioImage.widthAnchor.constraint(equalToConstant: 90),
+            audioImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 320),
+            audioImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             audioLabel.topAnchor.constraint(equalTo: audioImage.bottomAnchor, constant: 40),
             audioLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
