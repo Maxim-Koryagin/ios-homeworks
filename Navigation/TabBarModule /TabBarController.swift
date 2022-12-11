@@ -3,12 +3,20 @@
 //  Navigation
 //
 //  Created by Maxim Koryagin on 14.08.2022.
-
+import Foundation
 import UIKit
 
 final class TabBarController: UITabBarController {
     
     // MARK: Properties
+    
+    var tabBarStatus: TabBarStatus {
+        didSet {
+            switchTabBarStatus()
+        }
+    }
+    
+    let loginViewController = LoginViewController()
     
     var firstTabNavidationController: UINavigationController!
     var secondTabNavigationController: UINavigationController!
@@ -18,26 +26,38 @@ final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+                
+        if tabBarStatus == .userAuthorized {
+            setupNotAuthorized()
+        } else {
+            setupAuthorized()
+        }
     }
     
-    // MARK: Methods
+    init(tabBarStatus: TabBarStatus = .userNotAuthorized) {
+        self.tabBarStatus = tabBarStatus
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    private func setupUI() {
-        
-        let loginViewController = LoginViewController()
-        loginViewController.loginDelegate = MyLoginFactory().makeLoginInspector()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Methods
+    
+    private func setupAuthorized() {
+        let user = TestUserService()
+        let profileViewController = ProfileViewController(userService: user)
         
         firstTabNavidationController = UINavigationController.init(rootViewController: FeedViewController())
         secondTabNavigationController = UINavigationController.init(rootViewController: AudioViewController())
-        thirdTabNavigationController = UINavigationController.init(rootViewController: loginViewController)
+        thirdTabNavigationController = UINavigationController.init(rootViewController: profileViewController)
         
         viewControllers = [firstTabNavidationController, secondTabNavigationController, thirdTabNavigationController]
         
         let item1 = UITabBarItem(title: "Feed", image: UIImage(systemName: "square.grid.2x2"), tag: 0)
         let item2 = UITabBarItem(title: "Audio", image: UIImage(systemName: "music.note"), tag: 1)
         let item3 = UITabBarItem(title: "Profile", image:  UIImage(systemName: "person"), tag: 2)
-       
         
         firstTabNavidationController.tabBarItem = item1
         secondTabNavigationController.tabBarItem = item2
@@ -47,5 +67,41 @@ final class TabBarController: UITabBarController {
         UITabBar.appearance().backgroundColor = .white
     }
     
+    private func setupNotAuthorized() {
+        loginViewController.loginDelegate = MyLoginFactory().makeLoginInspector()
+                
+        firstTabNavidationController = UINavigationController.init(rootViewController: FeedViewController())
+        secondTabNavigationController = UINavigationController.init(rootViewController: AudioViewController())
+        thirdTabNavigationController = UINavigationController.init(rootViewController: loginViewController)
+
+        viewControllers = [firstTabNavidationController, secondTabNavigationController, thirdTabNavigationController]
+        
+        let item1 = UITabBarItem(title: "Feed", image: UIImage(systemName: "square.grid.2x2"), tag: 0)
+        let item2 = UITabBarItem(title: "Audio", image: UIImage(systemName: "music.note"), tag: 1)
+        let item3 = UITabBarItem(title: "Profile", image:  UIImage(systemName: "person"), tag: 2)
+       
+        firstTabNavidationController.tabBarItem = item1
+        secondTabNavigationController.tabBarItem = item2
+        thirdTabNavigationController.tabBarItem = item3
+        
+        UITabBar.appearance().tintColor = UIColor(red: 0/255.0, green: 146/255.0, blue: 248/255.0, alpha: 1)
+        UITabBar.appearance().backgroundColor = .white
+    }
+    
+    private func switchTabBarStatus() {
+        switch tabBarStatus {
+        case .userAuthorized:
+            print("User Authorized")
+        case .userNotAuthorized:
+            print("User isn't Authorized")
+        }
+    }
+    
 }
 
+extension TabBarController {
+    enum TabBarStatus {
+        case userAuthorized
+        case userNotAuthorized
+    }
+}

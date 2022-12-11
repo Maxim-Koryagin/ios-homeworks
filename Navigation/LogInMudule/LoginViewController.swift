@@ -6,13 +6,22 @@
 
 import UIKit
 import FirebaseAuth
+import RealmSwift
 
 final class LoginViewController: UIViewController {
 
     // MARK: Properties
     
+    private let realm = try! Realm()
+    
+    private var users: Results<Category>?
+    
+    private let realmService = RealmService()
+    
+    let userDefault = UserDefaults.standard
+    
     var loginDelegate: LoginViewControllerDelegate?
-                
+    
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
@@ -189,23 +198,43 @@ final class LoginViewController: UIViewController {
                 return
             }
             
-            self.loginDelegate?.checkCredentials(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
-                if result == "authorization complited" {
-                    self.showProfileVC()
-                } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
-                    self.showAlertLogin(message: result) { result in
-                        self.loginDelegate?.signUp(email: self.emailTextField.text!, password: self.passwordTextField.text!) { result in
-                            if result == "registration complited" {
-                                self.showSuccessAlert(message: result)
-                            } else {
-                                self.showErrorAlert(message: result)
-                            }
-                        }
-                    }
-                } else {
-                    self.showErrorAlert(message: result)
-                }
-            }
+//            let allCategory = self.realm.objects(Category.self)
+//            self.userDefault.setValue(login, forKey: "login")
+//            self.userDefault.setValue(password, forKey: "password")
+//            let newUser = NewUsers()
+//            newUser.login = login
+//            newUser.password = password
+//            self.realmService.createUser(categoryId: allCategory[0].id, user: newUser)
+//            print(allCategory)
+//            self.showProfileVC()
+            
+                let allCategory = self.realm.objects(Category.self)
+                self.userDefault.setValue(login, forKey: "login")
+                self.userDefault.setValue(password, forKey: "password")
+                let newUser = NewUsers()
+                newUser.login = login
+                newUser.password = password
+            self.realmService.addUser(categoryId: allCategory[0].id, user: newUser)
+                print(allCategory)
+                self.showProfileVC()
+            
+//            self.loginDelegate?.checkCredentials(email: login, password: password) { result in
+//                if result == "authorization complited" {
+//                    self.showProfileVC()
+//                } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
+//                    self.showAlertLogin(message: result) { result in
+//                        self.loginDelegate?.signUp(email: login, password: password) { result in
+//                            if result == "registration complited" {
+//                                self.showSuccessAlert(message: result)
+//                            } else {
+//                                self.showErrorAlert(message: result)
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.showErrorAlert(message: result)
+//                }
+//            }
         }
         
     }
@@ -260,7 +289,7 @@ extension LoginViewController {
     func showProfileVC() {
         let user = TestUserService()
    
-        let profileViewController = ProfileViewController(userService: user, name: emailTextField.text!)
+        let profileViewController = ProfileViewController(userService: user)
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }

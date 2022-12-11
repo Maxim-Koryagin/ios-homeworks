@@ -17,11 +17,9 @@ final class ProfileViewController: UIViewController {
     }()
     
     let userService: UserService
-    let name: String
     
-    init(userService: UserService, name: String) {
+    init(userService: UserService) {
         self.userService = userService
-        self.name = name
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -222,11 +220,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = profileHeader
         header.backgroundColor = #colorLiteral(red: 0.1922347248, green: 0.6801101565, blue: 0.9027846456, alpha: 1)
-        
-        let user = userService.checkLogin(login: name)
-        header.profileName.text = user?.fullName
-        header.profileImage.image = user?.avatar
-        header.statusLabel.text = user?.status
         
         return header
     }
